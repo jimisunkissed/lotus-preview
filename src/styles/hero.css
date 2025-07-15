@@ -1,0 +1,14 @@
+@keyframes unblur {
+  0% {
+    filter: blur(20px);
+    transform: scale(1.1);
+  }
+  100% {
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+.animate-unblur {
+  animation: unblur 2s ease-in-out;
+}
