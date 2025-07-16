@@ -1,23 +1,21 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
 
 type MainNavbarProps = {
   show: boolean;
   dark: boolean;
   setExpand: React.Dispatch<React.SetStateAction<boolean>>;
-  scrollRef: React.RefObject<HTMLDivElement | null>;
 };
 
-export function MainNavbar({ show, dark, setExpand, scrollRef }: MainNavbarProps): React.ReactNode {
+export function MainNavbar({ show, dark, setExpand }: MainNavbarProps): React.ReactNode {
   const scrollToTop = () => {
-    if (scrollRef?.current) {
-      scrollRef.current.scrollTo({
-        top: 0,
-        behavior: 'auto',
-      });
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
   };
 
   return (
@@ -29,7 +27,9 @@ export function MainNavbar({ show, dark, setExpand, scrollRef }: MainNavbarProps
       )}
     >
       <div className={cn('relative z-20 flex h-full w-full justify-center', dark ? 'text-black' : 'text-white')}>
-        <strong className="-mt-1.5 text-4xl font-bold transition-all duration-300">Lotu5</strong>
+        <Link href="/" className="-mt-1.5 text-4xl font-bold transition-all duration-300">
+          LOTU5
+        </Link>
         <Button
           size="icon"
           variant="ghost"

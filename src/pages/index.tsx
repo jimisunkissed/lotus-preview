@@ -1,47 +1,61 @@
-import { FilmPoster } from '@/lib/components/section/landing-page/film-poster';
-import { cn } from '@/lib/utils';
-import { MoveDown } from 'lucide-react';
-import { useState } from 'react';
+import { HeroBanner } from '@/lib/components/section/landing-page/hero-banner';
+import { HeroMain } from '@/lib/components/section/landing-page/hero-main';
+import { HeroSectionProps } from '@/lib/components/section/landing-page/hero-section';
+import { ItemHighlight } from '@/lib/components/section/landing-page/item-highlight';
 
 export default function Home() {
-  const [active, setActive] = useState<number>(0);
+  const items1: HeroSectionProps[] = [
+    {
+      href: '/',
+      category: 'shop',
+      title: 'Morrison Hotel Mint Exclusive Vinyl',
+      image: 'https://store.thedoors.com/cdn/shop/files/Doors_MorrisonHotel_LP_ProductShot_wBOOK_Obi_halfscale.png?v=1738093404',
+    },
+    {
+      href: '/',
+      category: 'shop',
+      title: 'Roger Waters Signed Stratocaster',
+      image:
+        'https://primetimesignatures.com/cdn/shop/products/roger-waters-of-pink-floyd-authentic-autographed-full-size-custom-electric-guitar-prime-time-signatures-music-14013010313309.png?v=1736652074&width=1000',
+      ar: 'aspect-video',
+      className: 'p-10',
+    },
+    {
+      href: '/',
+      category: 'shop',
+      title: 'Red Hot Chili Peppers Live Collection',
+      image: 'https://codarecords.co.uk/cdn/shop/files/RHCP_Live_at_Pat_O_Brien_Pavilion_Red_Vinyl_Mockup_for_Shopify.png?v=1733324747',
+      className: 'p-10',
+    },
+  ];
 
-  const filmList: { name: string; year: number; image: string }[] = [
+  const items2: HeroSectionProps[] = [
     {
-      name: 'Kashmir',
-      year: 1978,
-      image:
-        'https://images.unsplash.com/photo-1682685797498-3bad2c6e161a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      href: '/',
+      category: 'shop',
+      title: 'Led Zeppelin Maddison Garden Concert Ticket',
+      image: 'https://img1.wallspic.com/previews/7/8/1/9/49187/49187-guitarist-page_and_plant-performing_arts-taurus-led_zeppelin-x750.jpg',
+      ar: 'aspect-video',
     },
     {
-      name: 'Us & Them',
-      year: 1972,
+      href: '/',
+      category: 'shop',
+      title: 'The Dark Side of the Moon, 50th Anniversary Remaster',
       image:
-        'https://images.unsplash.com/photo-1525711857929-4272fb4a040f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-    {
-      name: 'Under the Bridge',
-      year: 1991,
-      image:
-        'https://images.unsplash.com/photo-1599180464074-55ee95f48d4f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-    {
-      name: 'Stairway to Heaven',
-      year: 1973,
-      image:
-        'https://images.unsplash.com/photo-1573844697731-d1995a92643e?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-    {
-      name: 'Over the Hills and Far Away',
-      year: 1973,
-      image:
-        'https://plus.unsplash.com/premium_photo-1732738245018-c0a68b1bf192?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://shop.sonymusic.ca/cdn/shop/files/PinkFloyd_TheDarkSideOfTheMoon50thAnniversaryRemaster_LP_19658720271_1500x1500_vinyl.webp?v=1743435929',
     },
   ];
 
   return (
-    <div className="flex flex-col h-[300dvh] w-full">
-      <FilmPoster />
+    <div className="flex flex-col w-full">
+      <HeroMain />
+      <ItemHighlight items={items1} />
+      <HeroBanner
+        href="/"
+        title="Dark Night of the Soul"
+        image="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?q=80&w=2196&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      />
+      <ItemHighlight items={items2} />
     </div>
   );
 }

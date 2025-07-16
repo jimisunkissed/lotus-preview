@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useMemo, useState } from 'react';
 
 type MainButtonProps = {
   show: boolean;
@@ -9,7 +10,10 @@ type MainButtonProps = {
 };
 
 export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
+  const { pathname, asPath } = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+
+  const secondaryPath = useMemo(() => pathname.split('/')?.[1], [pathname]);
 
   const menuList: { label: string; path: string }[] = [
     { label: 'Films', path: 'films' },
@@ -20,6 +24,10 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
     { label: 'App', path: 'app' },
   ];
 
+  useEffect(() => {
+    setOpen(false);
+  }, [asPath]);
+
   return (
     <>
       <div className="fixed z-50 flex left-10 top-[50px]">
@@ -29,26 +37,34 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
               className={cn(
                 'absolute h-[1px] w-[25px] transition-all duration-300',
                 dark && !open ? 'bg-black' : 'bg-white',
-                open ? 'rotate-45 top-[12px]' : 'top-[7px] group-hover:top-[6px]'
+                open ? 'rotate-45 top-[12px]' : 'top-[7px] group-hover:top-[6px]',
+                !!secondaryPath && !open ? 'group-hover:text-neutral-500' : ''
               )}
             />
             <div
               className={cn(
                 'absolute h-[1px] w-[25px] transition-all duration-300',
                 dark && !open ? 'bg-black' : 'bg-white',
-                open ? '-rotate-45 bottom-[12px]' : 'bottom-[7px] group-hover:bottom-[6px]'
+                open ? '-rotate-45 bottom-[12px]' : 'bottom-[7px] group-hover:bottom-[6px]',
+                !!secondaryPath && !open ? 'group-hover:text-neutral-500' : ''
               )}
             />
           </div>
-          <p
+          <div
             className={cn(
-              'text-[15px] transition-all duration-300',
+              'flex text-[15px] items-center gap-2 transition-all duration-300',
               dark && !open ? 'text-black' : 'text-white',
               !show && !open ? 'opacity-0' : 'opacity-100'
             )}
           >
-            {open ? 'CLOSE' : 'MENU'}
-          </p>
+            <p className={cn(!!secondaryPath && !open ? 'group-hover:text-neutral-500' : '')}>{open ? 'CLOSE' : 'MENU'}</p>
+            {!!secondaryPath && !open ? (
+              <>
+                <p>/</p>
+                <p> {secondaryPath.toUpperCase()}</p>
+              </>
+            ) : null}
+          </div>
         </Button>
       </div>
 
@@ -57,6 +73,9 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
           'fixed top-0 left-0 z-40 flex flex-col h-[100dvh] w-[500px] pt-32 px-10 gap-4 bg-black transition-all duration-300',
           open ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
+        style={{
+          boxShadow: '10px 0 50px rgba(0, 0, 0, 0.4), 20px 0 80px rgba(0, 0, 0, 0.2)',
+        }}
       >
         {menuList.map((menu, i) => (
           <Link key={i} href={`/${menu.path}`} className="w-full text-7xl font-medium text-white hover:text-neutral-500 transition-all">

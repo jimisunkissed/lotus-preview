@@ -36,7 +36,7 @@ export function MainSearch({ expand, setExpand }: MainSearchProps): React.ReactN
       <div className="relative flex w-full items-center">
         <Input
           ref={inputRef}
-          className="h-24 w-full p-0 text-7xl md:text-7xl font-semibold text-white rounded-none border-0 border-b-1 border-white shadow-none focus-visible:border-white focus-visible:ring-0"
+          className="h-24 w-full p-0 pb-2 text-7xl md:text-7xl font-semibold text-white rounded-none border-0 border-b-1 border-white shadow-none focus-visible:border-white focus-visible:ring-0"
         />
         <ArrowRight className="absolute -right-2 h-[60px] w-[60px] bg-black text-white" />
       </div>

@@ -10,5 +10,5 @@
 }
 
 .animate-unblur {
-  animation: unblur 2s ease-in-out;
+  animation: unblur 1.5s ease-in-out;
 }
