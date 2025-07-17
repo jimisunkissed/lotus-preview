@@ -17,7 +17,7 @@ export function MainFooter(): React.ReactNode {
   );
 
   return (
-    <div className="flex flex-col h-[450px] w-full px-[45px] py-[50px] gap-[45px] mt-auto bg-black">
+    <div className="flex flex-col h-fit w-full px-[45px] py-[50px] gap-[45px] mt-auto bg-black">
       <div className="grid grid-cols-4 w-full gap-[45px] text-white">
         <div className="flex flex-col h-full w-full gap-6">
           <Mapper links={left1} />

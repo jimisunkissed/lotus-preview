@@ -61,7 +61,7 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
             {!!secondaryPath && !open ? (
               <>
                 <p>/</p>
-                <p> {secondaryPath.toUpperCase()}</p>
+                <p>{secondaryPath.toUpperCase()}</p>
               </>
             ) : null}
           </div>
@@ -83,6 +83,13 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
           </Link>
         ))}
       </div>
+      <div
+        className={cn(
+          'fixed top-0 left-0 z-30 h-[100dvh] w-[100dvw] bg-black transition-all duration-300',
+          open ? 'opacity-20' : 'opacity-0 pointer-events-none'
+        )}
+        onClick={() => setOpen(false)}
+      />
     </>
   );
 }
