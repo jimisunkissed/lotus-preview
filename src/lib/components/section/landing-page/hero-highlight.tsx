@@ -1,15 +1,15 @@
-import { HeroSection, HeroSectionProps } from '@/lib/components/section/landing-page/hero-section';
+import { HeroItem, HeroItemProps } from '@/lib/components/section/landing-page/hero-section';
 import React from 'react';
 
-type ItemHighlightProps = {
-  items: HeroSectionProps[];
+type HeroHighlightProps = {
+  items: HeroItemProps[];
 };
 
-export function ItemHighlight({ items }: ItemHighlightProps): React.ReactNode {
+export function HeroHighlight({ items }: HeroHighlightProps): React.ReactNode {
   return (
     <div className="flex flex-col w-full p-24 gap-28">
       {items.map((item, i) => (
-        <HeroSection
+        <HeroItem
           key={i}
           href={item.href}
           category={item.category}

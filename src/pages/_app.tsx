@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
 import '@/styles/globals.css';
-import '@/styles/hero.css';
+import '@/styles/keyframes.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [loaded, setLoaded] = useState<boolean>(false);

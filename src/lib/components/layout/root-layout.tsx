@@ -66,7 +66,9 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
 
       <div className="relative z-0">
         {children}
-        <MainFooter />
+        <div className="relative z-10">
+          <MainFooter />
+        </div>
       </div>
     </div>
   );

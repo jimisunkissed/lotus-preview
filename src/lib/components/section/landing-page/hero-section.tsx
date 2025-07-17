@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
 
-export type HeroSectionProps = {
+export type HeroItemProps = {
   href: string;
   category: 'shop' | 'podcast' | 'blog';
   title: string;
@@ -12,7 +12,7 @@ export type HeroSectionProps = {
   className?: string;
 };
 
-export function HeroSection({
+export function HeroItem({
   href,
   category,
   title,
@@ -20,7 +20,7 @@ export function HeroSection({
   ar = 'aspect-square',
   align = 'flex-row',
   className = '',
-}: HeroSectionProps): React.ReactNode {
+}: HeroItemProps): React.ReactNode {
   const ActionText = {
     shop: 'SHOP NOW',
     podcast: 'LISTEN NOW',
