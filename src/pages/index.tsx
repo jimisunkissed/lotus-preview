@@ -2,8 +2,31 @@ import { HeroBanner } from '@/lib/components/section/landing-page/hero-banner';
 import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highlight';
 import { HeroMain } from '@/lib/components/section/landing-page/hero-main';
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-section';
+import { FilmsData, PictureProps } from '@/types/temp-picture';
+import { GetStaticProps } from 'next';
 
-export default function Home() {
+type Props = {
+  main: PictureProps[];
+  banner1: PictureProps;
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const main = [...FilmsData].slice(0, 5);
+    const banner1 = FilmsData[9];
+
+    return {
+      props: { main, banner1 },
+      revalidate: 60,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+};
+
+export default function Index({ main, banner1 }: Props) {
   const items1: HeroItemProps[] = [
     {
       href: '/',
@@ -47,14 +70,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col w-full">
-      <HeroMain />
+    <div className="flex flex-col min-h-screen w-full">
+      <HeroMain pictures={main} />
       <HeroHighlight items={items1} />
-      <HeroBanner
-        href="/"
-        title="Dark Night of the Soul"
-        image="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?q=80&w=2196&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
+      <HeroBanner picture={banner1} />
       <HeroHighlight items={items2} />
     </div>
   );

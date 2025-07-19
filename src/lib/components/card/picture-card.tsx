@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { pictureLink } from '@/lib/utils/general/url-util';
 import { PictureProps } from '@/types/temp-picture';
 import { differenceInDays, format, parseISO } from 'date-fns';
 import Image from 'next/image';
@@ -29,7 +30,7 @@ export function PictureCard({ picture, ar = 'aspect-[3/2]' }: PictureCardProps):
     return format(date, 'yyyy');
   }, [picture?.release_date]);
 
-  const PictureDetail = ({ label, value }: PictureDetailProps) => (
+  const PictureDetail = ({ label, value }: PictureDetailProps): React.ReactNode => (
     <div className="flex flex-col -gap-0.5">
       <p className="text-sm font-medium text-white opacity-50">{label}</p>
       <p className="-mt-0.5 text-[18px] text-white">{value}</p>
@@ -37,7 +38,7 @@ export function PictureCard({ picture, ar = 'aspect-[3/2]' }: PictureCardProps):
   );
 
   return (
-    <Link href="/films" className="group flex flex-col w-full cursor-pointer">
+    <Link href={pictureLink(picture)} className="group flex flex-col w-full cursor-pointer">
       <article>
         <div className={cn('relative w-full bg-black overflow-hidden', ar)}>
           <Image src={picture.image_thumbnail} alt="Picture Poster" fill className="object-cover" />

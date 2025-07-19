@@ -1,20 +1,25 @@
+import { pictureLink } from '@/lib/utils/general/url-util';
+import { PictureProps } from '@/types/temp-picture';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 type HeroBannerProps = {
-  href: string;
-  title: string;
-  image: string;
+  picture: PictureProps;
 };
 
-export function HeroBanner({ href, title, image }: HeroBannerProps): React.ReactNode {
+export function HeroBanner({ picture }: HeroBannerProps): React.ReactNode {
   return (
-    <Link href={href} className="group relative h-[85dvh] w-full my-6 overflow-hidden">
-      <Image src={image} alt="Banner Image" fill className="object-cover group-hover:scale-105 transition-all duration-1000" />
+    <Link href={pictureLink(picture)} className="group relative h-[85dvh] w-full my-6 overflow-hidden">
+      <Image
+        src={picture?.image_banner || picture?.image_thumbnail}
+        alt="Banner Image"
+        fill
+        className="object-cover group-hover:scale-105 transition-all duration-1000"
+      />
       <div className="absolute left-12 bottom-12 flex flex-col gap-2">
         <p className="font-medium text-neutral-500">WATCH NOW</p>
-        <strong className="text-7xl font-semibold text-white">{title}</strong>
+        <strong className="text-7xl font-semibold text-white">{picture.title}</strong>
       </div>
     </Link>
   );

@@ -20,7 +20,7 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
 
   const show: boolean = useMemo(() => scrollPosition < 0.2 || direction === 'up', [scrollPosition, direction]);
-  const dark: boolean = useMemo(() => scrollPosition > 0.6 || pathname !== '/', [scrollPosition, pathname]);
+  const dark: boolean = useMemo(() => scrollPosition > 0.6 || ['/films', '/television', '/docs'].includes(pathname), [scrollPosition, pathname]);
 
   useEffect(() => {
     let ticking: boolean = false;

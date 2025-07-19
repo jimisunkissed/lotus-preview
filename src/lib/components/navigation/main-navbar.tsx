@@ -11,13 +11,6 @@ type MainNavbarProps = {
 };
 
 export function MainNavbar({ show, dark, setExpand }: MainNavbarProps): React.ReactNode {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'auto',
-    });
-  };
-
   return (
     <div
       className={cn(
@@ -36,7 +29,7 @@ export function MainNavbar({ show, dark, setExpand }: MainNavbarProps): React.Re
           className="absolute right-0 h-fit w-fit p-0 hover:bg-transparent hover:text-neutral-500 transition-all duration-300"
           onClick={() => {
             setExpand(true);
-            scrollToTop();
+            window.scrollTo({ top: 0, behavior: 'auto' });
           }}
         >
           <Search className="min-h-6.5 min-w-6.5" strokeWidth={1} />

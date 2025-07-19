@@ -9,7 +9,7 @@ type PictureBentoProps = {
 
 export function PictureBento({ pictures }: PictureBentoProps): React.ReactNode {
   return (
-    <section className="grid grid-cols-3 w-full gap-8">
+    <div className="grid grid-cols-3 w-full gap-8">
       <div className="flex flex-col w-full gap-16">
         {pictures?.[0] && <PictureCard picture={pictures[0]} ar="aspect-[6/7]" />}
         {pictures?.[3] && <PictureCard picture={pictures[3]} ar="aspect-[3/2]" />}
@@ -27,6 +27,6 @@ export function PictureBento({ pictures }: PictureBentoProps): React.ReactNode {
         {pictures?.[5] && <PictureCard picture={pictures[5]} ar="aspect-[6/7]" />}
         {pictures?.[8] && <PictureCard picture={pictures[8]} ar="aspect-[3/2]" />}
       </div>
-    </section>
+    </div>
   );
 }

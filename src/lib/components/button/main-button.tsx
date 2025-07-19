@@ -36,17 +36,15 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
             <div
               className={cn(
                 'absolute h-[1px] w-[25px] transition-all duration-300',
-                dark && !open ? 'bg-black' : 'bg-white',
-                open ? 'rotate-45 top-[12px]' : 'top-[7px] group-hover:top-[6px]',
-                !!secondaryPath && !open ? 'group-hover:text-neutral-500' : ''
+                dark && !open ? 'bg-black group-hover:bg-neutral-500' : 'bg-white',
+                open ? 'rotate-45 top-[12px]' : 'top-[7px] group-hover:top-[6px]'
               )}
             />
             <div
               className={cn(
                 'absolute h-[1px] w-[25px] transition-all duration-300',
-                dark && !open ? 'bg-black' : 'bg-white',
-                open ? '-rotate-45 bottom-[12px]' : 'bottom-[7px] group-hover:bottom-[6px]',
-                !!secondaryPath && !open ? 'group-hover:text-neutral-500' : ''
+                dark && !open ? 'bg-black group-hover:bg-neutral-500' : 'bg-white',
+                open ? '-rotate-45 bottom-[12px]' : 'bottom-[7px] group-hover:bottom-[6px]'
               )}
             />
           </div>
@@ -57,7 +55,7 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
               !show && !open ? 'opacity-0' : 'opacity-100'
             )}
           >
-            <p className={cn(!!secondaryPath && !open ? 'group-hover:text-neutral-500' : '')}>{open ? 'CLOSE' : 'MENU'}</p>
+            <p className={cn(!!secondaryPath && !open && dark ? 'group-hover:text-neutral-500' : '')}>{open ? 'CLOSE' : 'MENU'}</p>
             {!!secondaryPath && !open ? (
               <>
                 <p>/</p>
@@ -78,7 +76,7 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
         }}
       >
         {menuList.map((menu, i) => (
-          <Link key={i} href={`/${menu.path}`} className="w-full text-7xl font-medium text-white hover:text-neutral-500 transition-all">
+          <Link key={i} href={`/${menu.path}`} className="w-full text-7xl font-medium text-white hover:text-neutral-300 transition-all">
             {menu.label}
           </Link>
         ))}

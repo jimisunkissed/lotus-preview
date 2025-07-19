@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { pictureLink } from '@/lib/utils/general/url-util';
 import { PictureProps } from '@/types/temp-picture';
 import { format } from 'date-fns';
 import Image from 'next/image';
@@ -12,7 +13,7 @@ type PictureListProps = {
 export function PictureList({ pictures }: PictureListProps): React.ReactNode {
   const [active, setActive] = useState<number>(0);
   const [entered, setEntered] = useState<boolean>(false);
-  const [distance, setDistance] = useState<{ top: number; bottom: number }>({ top: 0, bottom: 0 });
+  const [position, setPosition] = useState<'top' | 'mid' | 'bottom'>('top');
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const { innerHeight, innerWidth } = window;
@@ -20,14 +21,16 @@ export function PictureList({ pictures }: PictureListProps): React.ReactNode {
   const margin = useMemo(() => Math.round((innerHeight - imageHeight) / 2), [innerHeight, imageHeight]);
 
   useEffect(() => {
+    if (!entered) return;
+
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
-      const fromTop = rect.top;
-      const fromBottom = rect.bottom;
+      const top = rect.top;
+      const bottom = rect.bottom;
 
-      setDistance({ top: Math.round(fromTop), bottom: Math.round(fromBottom) });
+      setPosition(top > margin ? 'top' : bottom < imageHeight + margin ? 'bottom' : 'mid');
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -36,7 +39,7 @@ export function PictureList({ pictures }: PictureListProps): React.ReactNode {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [entered, imageHeight, margin]);
 
   return (
     <>
@@ -44,7 +47,7 @@ export function PictureList({ pictures }: PictureListProps): React.ReactNode {
         {pictures.map((picture, i) => (
           <Link
             key={i}
-            href="/films"
+            href={pictureLink(picture)}
             className="relative z-10 flex w-fit gap-4 hover:text-neutral-500 transition-all"
             onMouseEnter={() => {
               setActive(i);
@@ -59,9 +62,9 @@ export function PictureList({ pictures }: PictureListProps): React.ReactNode {
         <div
           className={cn(
             'z-0 flex aspect-video w-[58dvw] overflow-hidden pointer-events-none',
-            distance.top > margin
+            position === 'top'
               ? 'absolute top-0 right-0'
-              : distance.bottom < imageHeight + margin
+              : position === 'bottom'
               ? 'absolute bottom-0 right-0'
               : 'fixed top-[50dvh] -translate-y-[50%] right-10'
           )}

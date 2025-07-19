@@ -1,5 +1,5 @@
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
-import { FilmsData, PictureProps } from '@/types/temp-picture';
+import { PictureProps, TelevisionsData } from '@/types/temp-picture';
 import { isAfter, isBefore, parseISO } from 'date-fns';
 import { GetStaticProps } from 'next';
 import React, { useMemo } from 'react';
@@ -11,13 +11,13 @@ type Props = {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const upcoming = FilmsData.filter((film) => {
-      const releaseDate = parseISO(film.release_date);
+    const upcoming = TelevisionsData.filter((television) => {
+      const releaseDate = parseISO(television.release_date);
       const currentDate = new Date();
       return isAfter(releaseDate, currentDate);
     });
-    const released = FilmsData.filter((film) => {
-      const releaseDate = parseISO(film.release_date);
+    const released = TelevisionsData.filter((television) => {
+      const releaseDate = parseISO(television.release_date);
       const currentDate = new Date();
       return isBefore(releaseDate, currentDate);
     });
@@ -34,9 +34,12 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 function Index({ upcoming, released }: Props): React.ReactNode {
-  const sortedFilms = useMemo(() => [...FilmsData].sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()), []);
+  const sortedTelevisions = useMemo(
+    () => [...TelevisionsData].sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()),
+    []
+  );
 
-  return <PictureLayout type="film" upcoming={upcoming} released={released} all={sortedFilms} />;
+  return <PictureLayout type="television" upcoming={upcoming} released={released} all={sortedTelevisions} />;
 }
 
 export default Index;
