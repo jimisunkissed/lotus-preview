@@ -267,9 +267,9 @@ export const TelevisionsData: PictureProps[] = [
     writer: 'Syra Nollen',
     cast: ['Quinn Vex', 'Mirax Doren', 'Jyra Solen', 'Vex Torin', 'Lox Mirren'],
     image_thumbnail:
-      'https://images.unsplash.com/photo-1630965764262-52945d11196d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1749800190324-169d79c87e4d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     image_banner:
-      'https://images.unsplash.com/photo-1630965764262-52945d11196d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1749800190324-169d79c87e4d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
     id: '18',
@@ -282,9 +282,9 @@ export const TelevisionsData: PictureProps[] = [
     writer: 'Quinn Vex',
     cast: ['Mirax Doren', 'Vex Torin', 'Syra Nollen', 'Dax Voren', 'Lox Mirren'],
     image_thumbnail:
-      'https://images.unsplash.com/photo-1703069168820-84657d69a7a6?q=80&w=2842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1705105238704-a62b18e1b985?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     image_banner:
-      'https://images.unsplash.com/photo-1703069168820-84657d69a7a6?q=80&w=2842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1705105238704-a62b18e1b985?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
     id: '19',

@@ -4,14 +4,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 
-type MainButtonProps = {
+type MainMenuProps = {
   show: boolean;
   dark: boolean;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
+export function MainMenu({ show, dark, open, setOpen }: MainMenuProps): React.ReactNode {
   const { pathname, asPath } = useRouter();
-  const [open, setOpen] = useState<boolean>(false);
 
   const secondaryPath = useMemo(() => pathname.split('/')?.[1], [pathname]);
 
@@ -20,13 +21,22 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
     { label: 'Television', path: 'television' },
     { label: 'Docs', path: 'docs' },
     { label: 'Shop', path: 'shop' },
-    { label: 'Notes', path: 'notes' },
-    { label: 'App', path: 'app' },
+    { label: 'Notes', path: '' },
+    { label: 'App', path: '' },
   ];
 
   useEffect(() => {
     setOpen(false);
   }, [asPath]);
+
+  useEffect(() => {
+    if (open) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [open]);
 
   return (
     <>
@@ -48,6 +58,7 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
               )}
             />
           </div>
+
           <div
             className={cn(
               'flex text-[15px] items-center gap-2 transition-all duration-300',
@@ -83,7 +94,7 @@ export function MainButton({ show, dark }: MainButtonProps): React.ReactNode {
       </div>
       <div
         className={cn(
-          'fixed top-0 left-0 z-30 h-[100dvh] w-[100dvw] bg-black transition-all duration-300',
+          'fixed z-10 top-0 left-0 h-[100dvh] w-[100dvw] bg-black transition-all duration-300',
           open ? 'opacity-20' : 'opacity-0 pointer-events-none'
         )}
         onClick={() => setOpen(false)}

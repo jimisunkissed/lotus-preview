@@ -1,7 +1,7 @@
 import { HeroBanner } from '@/lib/components/section/landing-page/hero-banner';
 import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highlight';
 import { HeroMain } from '@/lib/components/section/landing-page/hero-main';
-import { HeroItemProps } from '@/lib/components/section/landing-page/hero-section';
+import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import { FilmsData, PictureProps } from '@/types/temp-picture';
 import { GetStaticProps } from 'next';
 

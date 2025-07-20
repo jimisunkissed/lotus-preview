@@ -1,4 +1,5 @@
 import { Separator } from '@/components/ui/separator';
+import { FlexSelect } from '@/lib/components/flex/flex-select';
 import { PictureProps } from '@/types/temp-picture';
 import { IconBrandFacebook, IconBrandTwitter, IconMail, IconPlayerPlay } from '@tabler/icons-react';
 import { format } from 'date-fns';
@@ -15,6 +16,12 @@ type PictureDetailProps = {
 };
 
 export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): React.ReactNode {
+  const WatchOptions = [
+    { value: 'onsite', label: 'ON SITE' },
+    { value: 'netflix', label: 'NETFLIX' },
+    { value: 'prime video', label: 'PRIME VIDEO' },
+  ];
+
   const PictureDetail = ({ title, value }: PictureDetailProps): React.ReactNode => {
     const clean: string | string[] = Array.isArray(value) ? value.filter((v) => typeof v === 'string') : value;
 
@@ -56,7 +63,9 @@ export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): Reac
         <section className="grid grid-cols-3 gap-[50px]">
           <PictureDetail title={picture.director === picture?.writer ? 'WRITTEN AND DIRECTED BY' : 'DIRECTED BY'} value={picture.director} />
           <PictureDetail title="YEAR" value={format(new Date(picture.release_date), 'yyyy')} />
-          <div></div>
+          <div>
+            <FlexSelect className="w-88" placeholder="WATCH NOW" options={WatchOptions} />
+          </div>
           <PictureDetail title="STARRING" value={(picture?.cast ?? []).filter((_, i) => [0, 2, 6].includes(i))} />
           <PictureDetail title="" value={(picture?.cast ?? []).filter((_, i) => [1, 3, 7].includes(i))} />
           <PictureDetail title="" value={(picture?.cast ?? []).filter((_, i) => [4, 5, 8].includes(i))} />

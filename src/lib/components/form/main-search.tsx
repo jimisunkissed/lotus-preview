@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { ArrowRight, X } from 'lucide-react';
+import { useRouter } from 'next/router';
 import React, { useEffect, useRef } from 'react';
 
 type MainSearchProps = {
@@ -10,6 +11,7 @@ type MainSearchProps = {
 };
 
 export function MainSearch({ expand, setExpand }: MainSearchProps): React.ReactNode {
+  const { pathname } = useRouter();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -17,6 +19,10 @@ export function MainSearch({ expand, setExpand }: MainSearchProps): React.ReactN
       inputRef.current.focus();
     }
   }, [expand]);
+
+  useEffect(() => {
+    setExpand(false);
+  }, [pathname]);
 
   return (
     <div

@@ -1,4 +1,4 @@
-import { HeroItem, HeroItemProps } from '@/lib/components/section/landing-page/hero-section';
+import { HeroItem, HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import React from 'react';
 
 type HeroHighlightProps = {

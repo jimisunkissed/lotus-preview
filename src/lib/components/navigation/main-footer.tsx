@@ -1,3 +1,4 @@
+import { FlexSeparator } from '@/lib/components/flex/flex-separator';
 import Link from 'next/link';
 import React from 'react';
 
@@ -26,16 +27,14 @@ export function MainFooter(): React.ReactNode {
 
         <div className="relative flex flex-col h-full w-full justify-end">
           <div className="absolute top-0 left-0 flex flex-col w-full">
-            <div className="h-[1px] w-full bg-white" />
-            <p className="text-xs">MORE LOTU5</p>
+            <FlexSeparator label="more lotus" theme="dark" />
           </div>
           <Mapper links={mid} />
         </div>
 
         <div className="relative col-span-2 flex flex-col h-full w-full justify-end">
           <div className="absolute top-0 left-0 flex flex-col w-full">
-            <div className="h-[1px] w-full bg-white" />
-            <p className="text-xs">WANT MORE LOTU5?</p>
+            <FlexSeparator label="want more lotu5?" theme="dark" />
           </div>
 
           <div className="flex flex-col w-full gap-6">
