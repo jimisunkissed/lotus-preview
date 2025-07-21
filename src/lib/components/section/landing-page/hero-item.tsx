@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { ar } from 'date-fns/locale';
 import Link from 'next/link';
 import React from 'react';
 
@@ -12,7 +13,7 @@ export type HeroItemProps = {
   className?: string;
 };
 
-export function HeroItem({ href, category, title, image, align = 'flex-row' }: HeroItemProps): React.ReactNode {
+export function HeroItem({ href, category, title, image, ar = 'aspect-square', align = 'flex-row', className }: HeroItemProps): React.ReactNode {
   const ActionText = {
     shop: 'SHOP NOW',
     podcast: 'LISTEN NOW',
@@ -21,14 +22,14 @@ export function HeroItem({ href, category, title, image, align = 'flex-row' }: H
 
   return (
     <div className={cn('flex', align, 'h-fit w-full gap-[54px]')}>
-      <Link href={href} className={cn('group h-fit w-[60%] p-5 bg-neutral-100 overflow-hidden')}>
-        <img src={image} alt="Item Highlight" className="h-full w-full object-fit group-hover:scale-105 transition-all duration-1000" />
+      <Link href={href} className={cn('group h-fit w-[60%] bg-neutral-100 overflow-hidden', ar, className)}>
+        <img src={image} alt="Item Highlight" className="h-full w-full object-contain group-hover:scale-105 transition-all duration-1000" />
       </Link>
 
-      <div className="flex flex-col flex-1 min-h-full justify-between">
+      <div className="flex flex-col flex-1 min-h-full">
         <>
           <p className="text-md text-neutral-500">{category.toUpperCase()}</p>
-          <Link href={href} className="text-7xl font-medium mt-2 hover:text-neutral-500 transition-all">
+          <Link href={href} className="text-7xl font-medium mt-2 mb-auto hover:text-neutral-500 transition-all">
             {title}
           </Link>
         </>
