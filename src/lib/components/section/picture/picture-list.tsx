@@ -1,8 +1,8 @@
+import { FlexImage } from '@/lib/components/flex/flex-image';
 import { cn } from '@/lib/utils';
 import { pictureLink } from '@/lib/utils/general/url-util';
 import { PictureProps } from '@/types/temp-picture';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -69,11 +69,10 @@ export function PictureList({ pictures }: PictureListProps): React.ReactNode {
               : 'fixed top-[50dvh] -translate-y-[50%] right-10'
           )}
         >
-          <Image
-            src={pictures[active].image_banner!}
+          <FlexImage
+            image={pictures[active].image_banner!}
             alt="Picture Banner"
-            fill
-            className={cn('object-cover transition-all', entered ? 'opacity-100' : 'opacity-0')}
+            className={cn('transition-all', entered ? 'opacity-100' : 'opacity-0')}
           />
         </div>
       </section>

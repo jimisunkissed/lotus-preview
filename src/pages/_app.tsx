@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Lotu5</title>
+        <title>LOTU5</title>
         <link rel="icon" href="/vercel.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>

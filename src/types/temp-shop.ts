@@ -1,5 +1,6 @@
 export type ProductProps = {
   id: string;
+  channel_id?: string;
   availability?: 'PREORDER' | 'NEW!' | 'SPECIAL EDITION' | 'EXCLUSIVE' | 'BACK IN STOCK';
   title: string;
   description?: string;
@@ -42,6 +43,46 @@ export const ProductsData: ProductProps[] = [
     price: 500000,
     images: [
       'https://shop.sonymusic.ca/cdn/shop/files/PinkFloyd_TheDarkSideOfTheMoon50thAnniversaryRemaster_LP_19658720271_1500x1500_vinyl.webp?v=1743435929',
+    ],
+  },
+  {
+    id: '6',
+    channel_id: 'abc',
+    title: 'Bucket Hat Brown',
+    price: 200000,
+    images: [
+      'https://sheilaon7.com/wp-content/uploads/2024/10/Bucket-Hat-TAD-Brown-1.png',
+      'https://sheilaon7.com/wp-content/uploads/2024/10/Bucket-Hat-TAD-Brown-2.png',
+    ],
+  },
+  {
+    id: '7',
+    channel_id: 'abc',
+    title: 'Hoodie Zipper TAD - Black',
+    price: 400000,
+    images: [
+      'https://sheilaon7.com/wp-content/uploads/2024/10/Hoodie-TAD-Black-1-1.png',
+      'https://sheilaon7.com/wp-content/uploads/2024/10/Hoodie-TAD-Black-2.png',
+    ],
+  },
+  {
+    id: '8',
+    channel_id: 'abc',
+    title: 'T-Shirt Album-Raglan Black/White',
+    price: 250000,
+    images: [
+      'https://sheilaon7.com/wp-content/uploads/2024/10/T-Shirt-Cassettes-TAD-Raglan-1.png',
+      'https://sheilaon7.com/wp-content/uploads/2024/10/T-Shirt-Cassettes-TAD-Raglan-2.png',
+    ],
+  },
+  {
+    id: '9',
+    channel_id: 'abc',
+    title: 'T-Shirt Flyer LS – Black/White',
+    price: 250000,
+    images: [
+      'https://sheilaon7.com/wp-content/uploads/2024/10/T-Shirt-Long-Sleeves-TAD-White-1.png',
+      'https://sheilaon7.com/wp-content/uploads/2024/10/T-Shirt-Long-Sleeves-TAD-White-2.png',
     ],
   },
 ];

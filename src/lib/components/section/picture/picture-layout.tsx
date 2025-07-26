@@ -4,32 +4,36 @@ import { PictureProps } from '@/types/temp-picture';
 import React from 'react';
 
 type PictureLayoutProps = {
-  type: 'film' | 'television' | 'documentary';
+  type?: 'film' | 'series' | 'documentary';
   upcoming: PictureProps[];
   released: PictureProps[];
-  all: PictureProps[];
+  all?: PictureProps[];
 };
 
 export function PictureLayout({ type, upcoming, released, all }: PictureLayoutProps): React.ReactNode {
   const headerConfig = {
     film: 'Films',
-    television: 'TV',
+    series: 'TV',
     documentary: 'Docs',
   };
 
   return (
     <div className="flex flex-col min-h-screen w-full px-10 pt-48 pb-16 gap-24">
-      <section className="flex flex-col w-full gap-10">
-        <h2 className="text-7xl font-medium">Upcoming</h2>
-        <PictureBento pictures={upcoming} />
-      </section>
+      {upcoming.length ? (
+        <section className="flex flex-col w-full gap-10">
+          <h2 className="text-7xl font-medium">Upcoming</h2>
+          <PictureBento pictures={upcoming} />
+        </section>
+      ) : null}
 
-      <section className="flex flex-col w-full gap-10">
-        <h2 className="text-7xl font-medium">All {headerConfig[type]}</h2>
-        <PictureBento pictures={released.slice(0, 9)} />
-      </section>
+      {released.length ? (
+        <section className="flex flex-col w-full gap-10">
+          <h2 className="text-7xl font-medium">All {!type ? 'Pictures' : headerConfig[type]}</h2>
+          <PictureBento pictures={released.slice(0, 9)} />
+        </section>
+      ) : null}
 
-      <PictureList pictures={all} />
+      {all?.length ? <PictureList pictures={all} /> : null}
     </div>
   );
 }

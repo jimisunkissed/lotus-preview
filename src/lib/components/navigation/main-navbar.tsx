@@ -28,8 +28,10 @@ export function MainNavbar({ show, dark, open, setOpen, setExpand }: MainNavbarP
         </div>
 
         <div className="flex w-full justify-center">
-          <Link href="/" className={cn('-mt-1.5 text-4xl font-bold', dark ? 'text-black' : 'text-white')}>
-            LOTU5
+          <Link href="/" className={cn('h-fit text-4xl font-bold')}>
+            <div className="h-5 w-fit overflow-hidden">
+              <img src="/lotu5-logo.png" className={cn('h-full w-fit object-contain transition-all duration-300', dark ? 'invert' : '')} />
+            </div>
           </Link>
         </div>
 

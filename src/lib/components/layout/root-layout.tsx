@@ -25,7 +25,10 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
     () => (!isShop ? scrollPosition < 0.2 || direction === 'up' : scrollPosition < 0.05),
     [isShop, scrollPosition, direction]
   );
-  const dark: boolean = useMemo(() => scrollPosition > 0.6 || ['/films', '/television', '/docs'].includes(pathname), [scrollPosition, pathname]);
+  const dark: boolean = useMemo(
+    () => scrollPosition > 0.6 || ['/[slug]', '/films', '/series', '/docs'].includes(pathname),
+    [scrollPosition, pathname]
+  );
 
   useEffect(() => {
     let ticking: boolean = false;

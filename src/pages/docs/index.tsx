@@ -39,7 +39,7 @@ function Index({ upcoming, released }: Props): React.ReactNode {
     []
   );
 
-  return <PictureLayout type="television" upcoming={upcoming} released={released} all={sortedDocumentaries} />;
+  return <PictureLayout type="series" upcoming={upcoming} released={released} all={sortedDocumentaries} />;
 }
 
 export default Index;

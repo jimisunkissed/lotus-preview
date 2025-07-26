@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { ar } from 'date-fns/locale';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -37,8 +38,9 @@ export function HeroItem({ href, category, title, image, ar = 'aspect-square', a
         <button className="group flex w-48 items-center gap-6 mt-12 cursor-pointer">
           <div className="relative flex h-8 w-[60px] group-hover:w-[30px] items-center transition-all duration-300">
             <div className="h-[2px] w-full rounded-full bg-black" />
-            <div className="absolute top-4 right-0 h-[1.4px] w-4 rounded-full bg-black rotate-40 origin-right" />
-            <div className="absolute bottom-4 right-0 h-[1.4px] w-4 rounded-full bg-black -rotate-40 origin-right" />
+            {/* <div className="absolute top-4 right-0 h-[1.4px] w-4 rounded-full bg-black rotate-40 origin-right" />
+            <div className="absolute bottom-4 right-0 h-[1.4px] w-4 rounded-full bg-black -rotate-40 origin-right" /> */}
+            <ArrowRight className='absolute -right-2 min-h-5 min-w-5' strokeWidth={2.1}/>
           </div>
 
           <p className="text-xl font-medium">{ActionText[category]}</p>

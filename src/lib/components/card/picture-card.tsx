@@ -1,8 +1,8 @@
+import { FlexImage } from '@/lib/components/flex/flex-image';
 import { cn } from '@/lib/utils';
 import { pictureLink } from '@/lib/utils/general/url-util';
 import { PictureProps } from '@/types/temp-picture';
 import { differenceInDays, format, parseISO } from 'date-fns';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 
@@ -41,7 +41,8 @@ export function PictureCard({ picture, ar = 'aspect-[3/2]' }: PictureCardProps):
     <Link href={pictureLink(picture)} className="group flex flex-col w-full cursor-pointer">
       <article>
         <div className={cn('relative w-full bg-black overflow-hidden', ar)}>
-          <Image src={picture.image_thumbnail} alt="Picture Poster" fill className="object-cover" />
+          <FlexImage image={picture.image_thumbnail} alt="Picture Poster" />
+
           <div className="absolute z-10 top-0 left-0 h-full w-full bg-black opacity-0 group-hover:opacity-60 transition-all" />
           <div className="absolute z-20 top-0 left-0 flex flex-col h-full w-full px-6 py-10 gap-3 opacity-0 group-hover:opacity-100 transition-all">
             <PictureDetail label="RELEASE DATE" value={format(new Date(picture?.release_date), 'MMM dd, yyyy')} />

@@ -1,6 +1,7 @@
 export type PictureProps = {
   id: string;
-  type: 'film' | 'television' | 'documentary';
+  channel_id?: string;
+  type: 'film' | 'series' | 'documentary';
   title: string;
   slug: string;
   synopsis?: string;
@@ -240,10 +241,10 @@ export const FilmsData: PictureProps[] = [
   },
 ];
 
-export const TelevisionsData: PictureProps[] = [
+export const SeriesData: PictureProps[] = [
   {
     id: '16',
-    type: 'television',
+    type: 'series',
     title: 'Silent Divide',
     slug: 'silent-divide',
     synopsis: 'In a fractured land where silence is survival, two unlikely allies must bridge the gap before it swallows them whole.',
@@ -258,7 +259,7 @@ export const TelevisionsData: PictureProps[] = [
   },
   {
     id: '17',
-    type: 'television',
+    type: 'series',
     title: 'Eternal Flame',
     slug: 'eternal-flame',
     synopsis: 'A dying world clings to its final flame, but one outcast discovers the spark that could reignite everything.',
@@ -273,7 +274,7 @@ export const TelevisionsData: PictureProps[] = [
   },
   {
     id: '18',
-    type: 'television',
+    type: 'series',
     title: 'Eclipse Protocol',
     slug: 'eclipse-protocol',
     synopsis: 'As the sun vanishes behind a global blackout, a covert team races to stop a protocol that was never meant to activate.',
@@ -288,7 +289,7 @@ export const TelevisionsData: PictureProps[] = [
   },
   {
     id: '19',
-    type: 'television',
+    type: 'series',
     title: 'Space Between',
     slug: 'space-between',
     synopsis: 'Love and loyalty are tested when a cosmic rift reveals secrets too powerful to stay buried.',
@@ -303,7 +304,7 @@ export const TelevisionsData: PictureProps[] = [
   },
   {
     id: '20',
-    type: 'television',
+    type: 'series',
     title: 'Neon Paradox',
     slug: 'neon-paradox',
     synopsis: 'In a city where time bends to desire, a rogue scientist risks everything to rewrite the past — and her future.',
@@ -360,5 +361,110 @@ export const DocumentariesData: PictureProps[] = [
       'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     image_banner:
       'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    id: '24',
+    channel_id: 'abc',
+    type: 'documentary',
+    title: 'Yang Terlewatkan',
+    slug: 'yang-terlewatkan',
+    synopsis:
+      'Seorang perempuan berani melamar sahabat kuliahnya yang selama ini ia cintai, tetapi ditolak karena perbedaan status—dan ketika sahabat itu menjauh kemudian meninggal, ia harus berdamai dengan penyesalan dan cinta yang tak sempat terucap, serta kehilangan yang tidak terselesaikan, bahkan hingga bertahun-tahun kemudian.',
+    release_date: '2025-11-10T00:00:00Z',
+    director: 'Jan Djuhana',
+    writer: 'Jan Djuhana',
+    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2024/01/slide124.jpg',
+    image_banner: 'https://sheilaon7.com/wp-content/uploads/2024/01/slide124.jpg',
+  },
+  {
+    id: '25',
+    channel_id: 'abc',
+    type: 'documentary',
+    title: 'Anugerah Terindah yang Pernah Kumiliki',
+    slug: 'anugerah-terindah-yang-pernah-kumiliki',
+    synopsis:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    release_date: '2025-11-11T00:00:00Z',
+    director: 'Jan Djuhana',
+    writer: 'Jan Djuhana',
+    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2023/03/Foto-Profil-Big-Size-1024x1024.png',
+    image_banner: 'https://sheilaon7.com/wp-content/uploads/2023/03/Foto-Profil-Big-Size-1024x1024.png',
+  },
+  {
+    id: '26',
+    channel_id: 'abc',
+    type: 'documentary',
+    title: 'Film Favorit',
+    slug: 'film-favorit',
+    synopsis:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    release_date: '2025-11-12T00:00:00Z',
+    director: 'Jan Djuhana',
+    writer: 'Jan Djuhana',
+    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2024/01/5-768x313.jpg',
+    image_banner: 'https://sheilaon7.com/wp-content/uploads/2024/01/5-768x313.jpg',
+  },
+  {
+    id: '27',
+    channel_id: 'abc',
+    type: 'documentary',
+    title: 'Dan',
+    slug: 'dan',
+    synopsis:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    release_date: '2025-06-13T00:00:00Z',
+    director: 'Jan Djuhana',
+    writer: 'Jan Djuhana',
+    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2024/11/FOTO-WEB-768x512.jpg',
+    image_banner: 'https://sheilaon7.com/wp-content/uploads/2024/11/FOTO-WEB-768x512.jpg',
+  },
+  {
+    id: '28',
+    channel_id: 'abc',
+    type: 'documentary',
+    title: 'Sephia',
+    slug: 'sephia',
+    synopsis:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    release_date: '2025-06-12T00:00:00Z',
+    director: 'Jan Djuhana',
+    writer: 'Jan Djuhana',
+    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2024/01/2-1-768x576.jpg',
+    image_banner: 'https://sheilaon7.com/wp-content/uploads/2024/01/2-1-768x576.jpg',
+  },
+  {
+    id: '29',
+    channel_id: 'abc',
+    type: 'documentary',
+    title: 'Mudah Saja',
+    slug: 'mudah-saja',
+    synopsis:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    release_date: '2025-06-12T00:00:00Z',
+    director: 'Jan Djuhana',
+    writer: 'Jan Djuhana',
+    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2024/01/1-1-768x576.jpg',
+    image_banner: 'https://sheilaon7.com/wp-content/uploads/2024/01/1-1-768x576.jpg',
+  },
+  {
+    id: '30',
+    channel_id: 'abc',
+    type: 'documentary',
+    title: 'Sahabat Sejati',
+    slug: 'sahabat-sejati',
+    synopsis:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    release_date: '2025-06-12T00:00:00Z',
+    director: 'Jan Djuhana',
+    writer: 'Jan Djuhana',
+    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2024/01/3-1-768x576.jpg',
+    image_banner: 'https://sheilaon7.com/wp-content/uploads/2024/01/3-1-768x576.jpg',
   },
 ];

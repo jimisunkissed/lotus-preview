@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   try {
     const documentary: PictureProps | undefined = DocumentariesData.find((te) => te.slug === slug);
-    if (!documentary) throw new Error('Television not found');
+    if (!documentary) throw new Error('Series not found');
 
     return {
       props: { documentary },

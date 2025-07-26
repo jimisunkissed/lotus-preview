@@ -1,10 +1,10 @@
-import { PictureProps, TelevisionsData } from '@/types/temp-picture';
+import { PictureProps, SeriesData } from '@/types/temp-picture';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
 import { PictureDetailLayout } from '@/lib/components/section/picture-detail/picture-detail-layout';
 
 type Props = {
-  television: PictureProps;
+  series: PictureProps;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -18,11 +18,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params!;
 
   try {
-    const television: PictureProps | undefined = TelevisionsData.find((te) => te.slug === slug);
-    if (!television) throw new Error('Television not found');
+    const series: PictureProps | undefined = SeriesData.find((te) => te.slug === slug);
+    if (!series) throw new Error('Series not found');
 
     return {
-      props: { television },
+      props: { series },
       revalidate: 60,
     };
   } catch (error) {
@@ -32,8 +32,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 };
 
-function Index({ television }: Props): React.ReactNode {
-  return <PictureDetailLayout picture={television} />;
+function Index({ series }: Props): React.ReactNode {
+  return <PictureDetailLayout picture={series} />;
 }
 
 export default Index;

@@ -1,9 +1,9 @@
 import { Separator } from '@/components/ui/separator';
+import { FlexImage } from '@/lib/components/flex/flex-image';
 import { FlexSelect } from '@/lib/components/flex/flex-select';
 import { PictureProps } from '@/types/temp-picture';
 import { IconBrandFacebook, IconBrandTwitter, IconMail, IconPlayerPlay } from '@tabler/icons-react';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import React from 'react';
 
 type PictureDetailLayoutProps = {
@@ -46,11 +46,10 @@ export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): Reac
   return (
     <div className="flex flex-col min-h-screen w-full">
       <header className="group relative flex aspect-[21/10] w-full items-center justify-center bg-black overflow-hidden">
-        <Image
-          src={picture?.image_banner || picture.image_thumbnail}
+        <FlexImage
+          image={picture?.image_banner || picture?.image_thumbnail}
           alt="Film Banner"
-          fill
-          className="absolute top-0 left-0 object-cover group-hover:scale-105 transition-all duration-500"
+          className="group-hover:scale-105 transition-all duration-500"
         />
 
         <h1 className="absolute bottom-10 left-10 text-[78px] font-medium text-white leading-none">{picture.title}</h1>

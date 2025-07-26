@@ -28,8 +28,10 @@ export function ShopNavbar({ show, open, setOpen, setExpand }: ShopNavbarProps):
             show || open ? 'opacity-100' : 'opacity-0 pointer-events-none'
           )}
         >
-          <Link href="/" className="-mt-1.5 text-4xl font-bold">
-            LOTU5
+          <Link href="/" className={cn('h-fit text-4xl font-bold')}>
+            <div className="h-5 w-fit overflow-hidden">
+              <img src="/lotu5-logo.png" className="h-full w-fit object-contain invert" />
+            </div>
           </Link>
         </div>
 

@@ -41,7 +41,7 @@ export function FlexSelect({ placeholder, options, className }: FlexSelectProps)
   return (
     <div
       ref={containerRef}
-      className={cn('relative flex h-16 w-full items-center px-5 border border-b-0 border-black cursor-pointer bg-white', className)}
+      className={cn('relative flex h-[60px] w-full items-center px-5 border border-b-0 border-black cursor-pointer bg-white', className)}
       onClick={() => setOpen(!open)}
     >
       <p className="font-medium flex-1 text-left">{displayText}</p>

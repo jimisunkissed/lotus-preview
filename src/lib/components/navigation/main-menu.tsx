@@ -18,11 +18,12 @@ export function MainMenu({ show, dark, open, setOpen }: MainMenuProps): React.Re
 
   const menuList: { label: string; path: string }[] = [
     { label: 'Films', path: 'films' },
-    { label: 'Television', path: 'television' },
+    { label: 'Series', path: 'series' },
     { label: 'Docs', path: 'docs' },
     { label: 'Shop', path: 'shop' },
     { label: 'Notes', path: '' },
-    { label: 'App', path: '' },
+    { label: 'Watch', path: 'watch' },
+    { label: 'Account', path: 'account' },
   ];
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export function MainMenu({ show, dark, open, setOpen }: MainMenuProps): React.Re
             {!!secondaryPath && !open ? (
               <>
                 <p>/</p>
-                <p>{secondaryPath.toUpperCase()}</p>
+                <p>{secondaryPath === '[slug]' ? 'CHANNEL' : secondaryPath.toUpperCase()}</p>
               </>
             ) : null}
           </div>

@@ -9,15 +9,17 @@ import React from 'react';
 type Props = {
   main: ProductProps;
   recents: ProductProps[];
+  apparels: ProductProps[];
 };
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const main = [...ProductsData][0];
     const recents = [...ProductsData].slice(1, 5);
+    const apparels = [...ProductsData].slice(5, 9);
 
     return {
-      props: { main, recents },
+      props: { main, recents, apparels },
       revalidate: 60,
     };
   } catch (error) {
@@ -27,7 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 };
 
-function Index({ main, recents }: Props): React.ReactNode {
+function Index({ main, recents, apparels }: Props): React.ReactNode {
   return (
     <div className="flex flex-col min-h-screen w-full px-24">
       <section className="flex h-[calc(100dvh-112px)] w-full gap-[54px]">
@@ -41,10 +43,16 @@ function Index({ main, recents }: Props): React.ReactNode {
         </div>
       </section>
 
-      <FlexSeparator label="recently added" />
-
+      <FlexSeparator label="Recently Added" />
       <section className="grid grid-cols-4 w-full pt-12 pb-20 gap-[54px]">
         {recents.map((pro, i) => (
+          <ProductCard key={i} product={pro} />
+        ))}
+      </section>
+
+      <FlexSeparator label="Apparel" />
+      <section className="grid grid-cols-4 w-full pt-12 pb-20 gap-[54px]">
+        {apparels.map((pro, i) => (
           <ProductCard key={i} product={pro} />
         ))}
       </section>
