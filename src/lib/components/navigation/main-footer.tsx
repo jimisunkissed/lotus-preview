@@ -44,7 +44,7 @@ export function MainFooter(): React.ReactNode {
 
             <div className="flex h-16 w-full border-1 border-white">
               <div className="relative flex flex-1 h-full">
-                <p className="absolute top-2 left-4 text-[9px]">EMAIL</p>
+                <label className="absolute top-2 left-4 text-[9px]">EMAIL</label>
                 <input className="h-full w-full px-4 font-medium outline-none" />
               </div>
               <button className="h-full w-48 bg-white text-black cursor-pointer">SIGN UP</button>

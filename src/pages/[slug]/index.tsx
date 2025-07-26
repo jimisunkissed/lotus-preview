@@ -1,12 +1,12 @@
+import { getBatchSupabase } from '@/lib/api/supabase-api';
 import { HeroBanner } from '@/lib/components/section/landing-page/hero-banner';
 import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highlight';
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
 import { PictureList } from '@/lib/components/section/picture/picture-list';
-import { ChannelProps, channelsData } from '@/types/temp-channel';
-import { DocumentariesData, FilmsData, PictureProps, SeriesData } from '@/types/temp-picture';
+import { supabase } from '@/lib/config/supabase-config';
+import { ChannelProps, PictureProps } from '@/types/supabase/supabase-table-type';
 import { ProductsData } from '@/types/temp-shop';
-import { isAfter, isBefore, parseISO } from 'date-fns';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
 
@@ -14,6 +14,7 @@ type Props = {
   channel: ChannelProps;
   upcoming: PictureProps[];
   released: PictureProps[];
+  all: PictureProps[];
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -24,23 +25,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { slug } = context.params!;
-
   try {
-    const channel = channelsData.find((ch) => ch.slug === slug);
-    if (!channel) throw new Error('Channel not found');
+    const { slug } = context.params!;
 
-    const pictures = [...FilmsData, ...SeriesData, ...DocumentariesData].filter((pic) => pic.channel_id === channel.id);
-    const upcoming = pictures.filter((film) => {
-      const releaseDate = parseISO(film.release_date);
-      const currentDate = new Date();
-      return isAfter(releaseDate, currentDate);
-    });
-    const released = pictures.filter((film) => {
-      const releaseDate = parseISO(film.release_date);
-      const currentDate = new Date();
-      return isBefore(releaseDate, currentDate);
-    });
+    const channel = await getBatchSupabase({ tableId: 'channel', filters: [{ column: 'slug', op: 'eq', value: slug! }], length: 1 }).then(
+      (res) => res?.[0]
+    );
+    if (!channel?.id) throw new Error('Channel not found');
+
+    const [upcoming, released] = await Promise.all([
+      supabase.rpc('get_pictures', { channel_id: channel.id, status: 'upcoming', direction: 'asc' }).then((res) => res.data),
+      supabase.rpc('get_pictures', { channel_id: channel.id, status: 'released', direction: 'desc' }).then((res) => res.data),
+      supabase.rpc('get_pictures', { channel_id: channel.id, direction: 'desc' }).then((res) => res.data),
+    ]);
 
     return {
       props: { channel, upcoming, released },
@@ -53,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 };
 
-function Index({ channel, upcoming, released }: Props): React.ReactNode {
+function Index({ channel, upcoming, released, all }: Props): React.ReactNode {
   const items1: HeroItemProps[] = ProductsData.filter((pro) => pro.channel_id === channel.id)
     .slice(0, 3)
     .map((pro) => ({ href: '/sheila-on-7', category: 'shop', title: pro.title, image: pro.images[0] }));

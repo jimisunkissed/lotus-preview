@@ -1,29 +1,25 @@
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
-import { PictureProps, SeriesData } from '@/types/temp-picture';
-import { isAfter, isBefore, parseISO } from 'date-fns';
+import { supabase } from '@/lib/config/supabase-config';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 import { GetStaticProps } from 'next';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 type Props = {
   upcoming: PictureProps[];
   released: PictureProps[];
+  all: PictureProps[];
 };
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const upcoming = SeriesData.filter((series) => {
-      const releaseDate = parseISO(series.release_date);
-      const currentDate = new Date();
-      return isAfter(releaseDate, currentDate);
-    });
-    const released = SeriesData.filter((series) => {
-      const releaseDate = parseISO(series.release_date);
-      const currentDate = new Date();
-      return isBefore(releaseDate, currentDate);
-    });
+    const [upcoming, released, all] = await Promise.all([
+      supabase.rpc('get_pictures', { type: 'series', status: 'upcoming', direction: 'asc' }).then((res) => res.data),
+      supabase.rpc('get_pictures', { type: 'series', status: 'released', direction: 'desc' }).then((res) => res.data),
+      supabase.rpc('get_pictures', { type: 'series', status: 'all', direction: 'desc', length: 15 }).then((res) => res.data),
+    ]);
 
     return {
-      props: { upcoming, released },
+      props: { upcoming, released, all },
       revalidate: 60,
     };
   } catch (error) {
@@ -33,13 +29,8 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 };
 
-function Index({ upcoming, released }: Props): React.ReactNode {
-  const sortedSeries = useMemo(
-    () => [...SeriesData].sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()),
-    []
-  );
-
-  return <PictureLayout type="series" upcoming={upcoming} released={released} all={sortedSeries} />;
+function Index({ upcoming, released, all }: Props): React.ReactNode {
+  return <PictureLayout type="series" upcoming={upcoming} released={released} all={all} />;
 }
 
 export default Index;

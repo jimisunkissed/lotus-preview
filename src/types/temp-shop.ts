@@ -1,6 +1,6 @@
 export type ProductProps = {
   id: string;
-  channel_id?: string;
+  channel_id?: number;
   availability?: 'PREORDER' | 'NEW!' | 'SPECIAL EDITION' | 'EXCLUSIVE' | 'BACK IN STOCK';
   title: string;
   description?: string;
@@ -47,7 +47,7 @@ export const ProductsData: ProductProps[] = [
   },
   {
     id: '6',
-    channel_id: 'abc',
+    channel_id: 1,
     title: 'Bucket Hat Brown',
     price: 200000,
     images: [
@@ -57,7 +57,7 @@ export const ProductsData: ProductProps[] = [
   },
   {
     id: '7',
-    channel_id: 'abc',
+    channel_id: 1,
     title: 'Hoodie Zipper TAD - Black',
     price: 400000,
     images: [
@@ -67,7 +67,7 @@ export const ProductsData: ProductProps[] = [
   },
   {
     id: '8',
-    channel_id: 'abc',
+    channel_id: 1,
     title: 'T-Shirt Album-Raglan Black/White',
     price: 250000,
     images: [
@@ -77,7 +77,7 @@ export const ProductsData: ProductProps[] = [
   },
   {
     id: '9',
-    channel_id: 'abc',
+    channel_id: 1,
     title: 'T-Shirt Flyer LS – Black/White',
     price: 250000,
     images: [

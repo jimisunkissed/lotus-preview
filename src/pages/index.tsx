@@ -2,8 +2,9 @@ import { HeroBanner } from '@/lib/components/section/landing-page/hero-banner';
 import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highlight';
 import { HeroMain } from '@/lib/components/section/landing-page/hero-main';
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
-import { FilmsData, PictureProps } from '@/types/temp-picture';
 import { GetStaticProps } from 'next';
+import { getBatchSupabase, getSingleSupabase } from '@/lib/api/supabase-api';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 
 type Props = {
   main: PictureProps[];
@@ -12,8 +13,8 @@ type Props = {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const main = [...FilmsData].slice(0, 5);
-    const banner1 = FilmsData[9];
+    const mainPromise = [1, 2, 3, 4, 5].map(async (id) => getSingleSupabase({ tableId: 'picture', id }));
+    const [main, banner1] = await Promise.all([Promise.all(mainPromise), getSingleSupabase({ tableId: 'picture', id: 22 })]);
 
     return {
       props: { main, banner1 },

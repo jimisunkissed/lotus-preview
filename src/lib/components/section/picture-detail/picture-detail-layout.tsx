@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator';
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { FlexSelect } from '@/lib/components/flex/flex-select';
-import { PictureProps } from '@/types/temp-picture';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 import { IconBrandFacebook, IconBrandTwitter, IconMail, IconPlayerPlay } from '@tabler/icons-react';
 import { format } from 'date-fns';
 import React from 'react';
@@ -61,7 +61,7 @@ export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): Reac
       <main className="flex flex-col w-full p-[50px] gap-[50px]">
         <section className="grid grid-cols-3 gap-[50px]">
           <PictureDetail title={picture.director === picture?.writer ? 'WRITTEN AND DIRECTED BY' : 'DIRECTED BY'} value={picture.director} />
-          <PictureDetail title="YEAR" value={format(new Date(picture.release_date), 'yyyy')} />
+          <PictureDetail title="YEAR" value={picture?.release_date ? format(new Date(picture.release_date), 'yyyy') : '(TBD)'} />
           <div>
             <FlexSelect className="w-88" placeholder="WATCH NOW" options={WatchOptions} />
           </div>

@@ -1,6 +1,6 @@
 import { PictureBento } from '@/lib/components/section/picture/picture-bento';
 import { PictureList } from '@/lib/components/section/picture/picture-list';
-import { PictureProps } from '@/types/temp-picture';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 import React from 'react';
 
 type PictureLayoutProps = {
@@ -13,7 +13,7 @@ type PictureLayoutProps = {
 export function PictureLayout({ type, upcoming, released, all }: PictureLayoutProps): React.ReactNode {
   const headerConfig = {
     film: 'Films',
-    series: 'TV',
+    series: 'Series',
     documentary: 'Docs',
   };
 

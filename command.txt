@@ -1,0 +1,2 @@
+# supabase
+npx supabase gen types typescript --project-id {project-id} --schema public > src/types/supabase/supabase-data-type.ts

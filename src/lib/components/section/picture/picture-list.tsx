@@ -1,7 +1,7 @@
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { cn } from '@/lib/utils';
 import { pictureLink } from '@/lib/utils/general/url-util';
-import { PictureProps } from '@/types/temp-picture';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -55,7 +55,7 @@ export function PictureList({ pictures }: PictureListProps): React.ReactNode {
             }}
           >
             <strong className="text-[100px] font-medium leading-none">{picture.title}</strong>
-            <p className="mt-10">{format(new Date(picture.release_date), 'yyyy')}</p>
+            {picture.release_date ? <p className="mt-10">{format(new Date(picture?.release_date), 'yyyy')}</p> : null}
           </Link>
         ))}
 

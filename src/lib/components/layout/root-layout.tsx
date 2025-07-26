@@ -6,6 +6,8 @@ import { IBM_Plex_Sans } from 'next/font/google';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ShopNavbar } from '@/lib/components/navigation/shop-navbar';
+import { useAppStore } from '@/hooks/app-store';
+import { AuthModal } from '@/lib/components/modal/auth-modal';
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -15,20 +17,11 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 export function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
   const { pathname } = useRouter();
-  const [expand, setExpand] = useState<boolean>(false);
+  const { openMenu, openAuth, setShowNavbar, setDarkNavbar } = useAppStore();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
 
   const isShop: boolean = useMemo(() => pathname.startsWith('/shop') || pathname === '/shop', [pathname]);
-  const show: boolean = useMemo(
-    () => (!isShop ? scrollPosition < 0.2 || direction === 'up' : scrollPosition < 0.05),
-    [isShop, scrollPosition, direction]
-  );
-  const dark: boolean = useMemo(
-    () => scrollPosition > 0.6 || ['/[slug]', '/films', '/series', '/docs'].includes(pathname),
-    [scrollPosition, pathname]
-  );
 
   useEffect(() => {
     let ticking: boolean = false;
@@ -55,7 +48,7 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
       }
     };
 
-    if (open) {
+    if (openMenu || openAuth) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -71,33 +64,45 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
       window.removeEventListener('scroll', handleScroll);
       document.body.style.overflow = 'unset';
     };
-  }, [open]);
+  }, [openMenu, openAuth]);
+
+  useEffect(() => {
+    setShowNavbar(!isShop ? scrollPosition < 0.2 || direction === 'up' : scrollPosition < 0.05);
+  }, [isShop, scrollPosition, direction]);
+
+  useEffect(() => {
+    setDarkNavbar(scrollPosition > 0.6 || ['/[slug]', '/films', '/series', '/docs'].includes(pathname));
+  }, [scrollPosition, pathname]);
 
   return (
-    <div className={cn(ibmPlexSans.className, 'relative flex flex-col w-screen tracking-tight')}>
-      {!isShop ? (
-        <div className="fixed top-0 left-0 h-[100dvh] w-[100dvw] bg-white" />
-      ) : (
-        <div className="fixed top-0 left-0 h-[100dvh] w-[100dvw] bg-neutral-100" />
-      )}
+    <>
+      <div className={cn(ibmPlexSans.className, 'relative flex flex-col w-screen tracking-tight')}>
+        {!isShop ? (
+          <div className="fixed top-0 left-0 h-[100dvh] w-[100dvw] bg-white" />
+        ) : (
+          <div className="fixed top-0 left-0 h-[100dvh] w-[100dvw] bg-neutral-100" />
+        )}
 
-      {!pathname.startsWith('/shop') ? (
-        <nav className="relative z-10">
-          <MainNavbar show={show} dark={dark} open={open} setOpen={setOpen} setExpand={setExpand} />
-          <MainSearch expand={expand} setExpand={setExpand} />
-        </nav>
-      ) : (
-        <nav className="sticky z-10 top-0 left-0 w-full">
-          <ShopNavbar show={show} open={open} setOpen={setOpen} setExpand={setExpand} />
-        </nav>
-      )}
+        {!pathname.startsWith('/shop') ? (
+          <nav className="relative z-10">
+            <MainNavbar />
+            <MainSearch />
+          </nav>
+        ) : (
+          <nav className="sticky z-10 top-0 left-0 w-full">
+            <ShopNavbar />
+          </nav>
+        )}
 
-      <div className="relative z-0">
-        {children}
-        <div className="relative z-10">
-          <MainFooter />
+        <div className="relative z-0">
+          {children}
+          <div className="relative z-10">
+            <MainFooter />
+          </div>
         </div>
       </div>
-    </div>
+
+      <AuthModal />
+    </>
   );
 }

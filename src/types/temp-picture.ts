@@ -388,7 +388,7 @@ export const DocumentariesData: PictureProps[] = [
     release_date: '2025-11-11T00:00:00Z',
     director: 'Jan Djuhana',
     writer: 'Jan Djuhana',
-    cast: ['Duta', 'Eross Candra', 'Adam Subarkah'],
+    cast: ["Duta", "Eross Candra", "Adam Subarkah"],
     image_thumbnail: 'https://sheilaon7.com/wp-content/uploads/2023/03/Foto-Profil-Big-Size-1024x1024.png',
     image_banner: 'https://sheilaon7.com/wp-content/uploads/2023/03/Foto-Profil-Big-Size-1024x1024.png',
   },

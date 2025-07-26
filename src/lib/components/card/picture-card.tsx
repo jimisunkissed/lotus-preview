@@ -1,7 +1,7 @@
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { cn } from '@/lib/utils';
 import { pictureLink } from '@/lib/utils/general/url-util';
-import { PictureProps } from '@/types/temp-picture';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 import { differenceInDays, format, parseISO } from 'date-fns';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
@@ -45,7 +45,10 @@ export function PictureCard({ picture, ar = 'aspect-[3/2]' }: PictureCardProps):
 
           <div className="absolute z-10 top-0 left-0 h-full w-full bg-black opacity-0 group-hover:opacity-60 transition-all" />
           <div className="absolute z-20 top-0 left-0 flex flex-col h-full w-full px-6 py-10 gap-3 opacity-0 group-hover:opacity-100 transition-all">
-            <PictureDetail label="RELEASE DATE" value={format(new Date(picture?.release_date), 'MMM dd, yyyy')} />
+            <PictureDetail
+              label="RELEASE DATE"
+              value={picture?.release_date ? format(new Date(picture?.release_date), 'MMM dd, yyyy') : '(TBD)'}
+            />
 
             {picture.director === picture?.writer ? (
               <PictureDetail label="WRITTEN AND DIRECTED BY" value={picture.director} />

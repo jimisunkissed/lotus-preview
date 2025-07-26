@@ -1,7 +1,7 @@
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { cn } from '@/lib/utils';
 import { pictureLink } from '@/lib/utils/general/url-util';
-import { PictureProps } from '@/types/temp-picture';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 import { format } from 'date-fns';
 import { MoveDown } from 'lucide-react';
 import Link from 'next/link';
@@ -50,9 +50,11 @@ export function HeroMain({ pictures }: HeroMainProps): React.ReactNode {
               <Link href={pictureLink(picture)} className={cn('text-7xl font-medium', active === i ? 'text-neutral-300' : 'text-white')}>
                 {picture.title}
               </Link>
-              <p className={cn('mt-1 font-medium', active === i ? 'text-neutral-300' : 'text-white')}>
-                {format(new Date(picture.release_date), 'yyyy')}
-              </p>
+              {picture?.release_date ? (
+                <p className={cn('mt-1 font-medium', active === i ? 'text-neutral-300' : 'text-white')}>
+                  {format(new Date(picture.release_date), 'yyyy')}
+                </p>
+              ) : null}
             </div>
           </article>
         ))}

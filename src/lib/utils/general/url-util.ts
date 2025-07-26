@@ -1,4 +1,4 @@
-import { PictureProps } from '@/types/temp-picture';
+import { PictureProps } from '@/types/supabase/supabase-table-type';
 
 export const pictureLink = (picture: PictureProps): string => {
   const config = {
@@ -6,8 +6,8 @@ export const pictureLink = (picture: PictureProps): string => {
     series: 'series',
     documentary: 'docs',
   };
-  const path = config?.[picture?.type];
+  const path = config?.[picture.type];
 
   if (!path) return '/';
-  return `/${path}/${picture?.slug}`;
+  return `/${path}/${picture.id}-${picture.slug}`;
 };
