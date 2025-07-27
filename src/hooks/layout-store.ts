@@ -1,12 +1,14 @@
 import { create } from 'zustand';
 
-type AppStoreProps = {
+type LayoutStoreProps = {
+  animated: boolean;
   openMenu: boolean;
   openShop: boolean;
   openSearch: boolean;
   openAuth: boolean;
   showNavbar: boolean;
   darkNavbar: boolean;
+  setAnimated: (value: boolean) => void;
   setOpenMenu: (value: boolean) => void;
   setOpenShop: (value: boolean) => void;
   setOpenSearch: (value: boolean) => void;
@@ -15,13 +17,15 @@ type AppStoreProps = {
   setDarkNavbar: (value: boolean) => void;
 };
 
-export const useAppStore = create<AppStoreProps>((set) => ({
+export const useLayoutStore = create<LayoutStoreProps>((set) => ({
+  animated: false,
   openMenu: false,
   openShop: false,
   openSearch: false,
   openAuth: false,
   showNavbar: false,
   darkNavbar: false,
+  setAnimated: (value: boolean) => set({ animated: value }),
   setOpenMenu: (value: boolean) => set({ openMenu: value }),
   setOpenShop: (value: boolean) => set({ openShop: value }),
   setOpenSearch: (value: boolean) => set({ openSearch: value }),

@@ -4,7 +4,7 @@ import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highli
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
 import { PictureList } from '@/lib/components/section/picture/picture-list';
-import { supabase } from '@/lib/config/supabase-config';
+import { supabase } from '@/lib/config/supabase-client-config';
 import { ChannelProps, PictureProps } from '@/types/supabase/supabase-table-type';
 import { ProductsData } from '@/types/temp-shop';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -33,14 +33,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     );
     if (!channel?.id) throw new Error('Channel not found');
 
-    const [upcoming, released] = await Promise.all([
+    const [upcoming, released, all] = await Promise.all([
       supabase.rpc('get_pictures', { channel_id: channel.id, status: 'upcoming', direction: 'asc' }).then((res) => res.data),
       supabase.rpc('get_pictures', { channel_id: channel.id, status: 'released', direction: 'desc' }).then((res) => res.data),
       supabase.rpc('get_pictures', { channel_id: channel.id, direction: 'desc' }).then((res) => res.data),
     ]);
 
     return {
-      props: { channel, upcoming, released },
+      props: { channel, upcoming, released, all },
       revalidate: 60,
     };
   } catch (error) {
@@ -61,7 +61,7 @@ function Index({ channel, upcoming, released, all }: Props): React.ReactNode {
       <HeroBanner picture={upcoming[0]} />
       <HeroHighlight items={items1} />
       <div className="px-10 pb-16">
-        <PictureList pictures={[...upcoming, ...released]} />
+        <PictureList pictures={all} />
       </div>
     </div>
   );

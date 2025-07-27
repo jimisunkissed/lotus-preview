@@ -6,7 +6,7 @@ import { IBM_Plex_Sans } from 'next/font/google';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ShopNavbar } from '@/lib/components/navigation/shop-navbar';
-import { useAppStore } from '@/hooks/app-store';
+import { useLayoutStore } from '@/hooks/layout-store';
 import { AuthModal } from '@/lib/components/modal/auth-modal';
 
 const ibmPlexSans = IBM_Plex_Sans({
@@ -17,7 +17,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 export function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
   const { pathname } = useRouter();
-  const { openMenu, openAuth, setShowNavbar, setDarkNavbar } = useAppStore();
+  const { openMenu, openAuth, setAnimated, setShowNavbar, setDarkNavbar } = useLayoutStore();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
 
@@ -67,11 +67,22 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
   }, [openMenu, openAuth]);
 
   useEffect(() => {
+    setAnimated(false);
+    setTimeout(() => {
+      setAnimated(true);
+    }, 300);
+  }, [pathname]);
+
+  useEffect(() => {
     setShowNavbar(!isShop ? scrollPosition < 0.2 || direction === 'up' : scrollPosition < 0.05);
   }, [isShop, scrollPosition, direction]);
 
   useEffect(() => {
-    setDarkNavbar(scrollPosition > 0.6 || ['/[slug]', '/films', '/series', '/docs'].includes(pathname));
+    setDarkNavbar(
+      scrollPosition > 0.6 ||
+        ['/[slug]', '/films', '/series', '/docs'].includes(pathname) ||
+        ['/account'].some((path) => pathname.startsWith(path))
+    );
   }, [scrollPosition, pathname]);
 
   return (

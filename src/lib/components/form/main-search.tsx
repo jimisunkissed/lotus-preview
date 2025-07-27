@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useAppStore } from '@/hooks/app-store';
+import { useLayoutStore } from '@/hooks/layout-store';
 import { cn } from '@/lib/utils';
 import { ArrowRight, X } from 'lucide-react';
 import { useRouter } from 'next/router';
@@ -7,8 +7,8 @@ import React, { useEffect, useRef } from 'react';
 
 export function MainSearch(): React.ReactNode {
   const { pathname } = useRouter();
-  const { openSearch, setOpenSearch } = useAppStore();
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const { animated, openSearch, setOpenSearch } = useLayoutStore();
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
     if (openSearch && inputRef?.current) {
@@ -23,7 +23,8 @@ export function MainSearch(): React.ReactNode {
   return (
     <div
       className={cn(
-        'relative z-50 flex w-full items-center px-12 bg-black overflow-hidden transition-all duration-300',
+        'relative z-50 flex w-full items-center px-12 bg-black overflow-hidden',
+        animated ? 'transition-all duration-300' : '',
         openSearch ? 'h-[60dvh]' : 'h-0'
       )}
     >

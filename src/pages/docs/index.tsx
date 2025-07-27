@@ -1,5 +1,5 @@
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
-import { supabase } from '@/lib/config/supabase-config';
+import { supabase } from '@/lib/config/supabase-client-config';
 import { PictureProps } from '@/types/supabase/supabase-table-type';
 import { GetStaticProps } from 'next';
 import React from 'react';

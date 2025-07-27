@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { useAppStore } from '@/hooks/app-store';
+import { useAuthStore } from '@/hooks/auth-store';
+import { useLayoutStore } from '@/hooks/layout-store';
 import { ShopCart } from '@/lib/components/navigation/shop-cart';
 import { ShopMenu } from '@/lib/components/navigation/shop-menu';
 import { ShopHero } from '@/lib/components/section/shop/shop-hero';
@@ -9,7 +10,8 @@ import Link from 'next/link';
 import React from 'react';
 
 export function ShopNavbar(): React.ReactNode {
-  const { openShop, showNavbar, setOpenShop, setOpenSearch } = useAppStore();
+  const { loaded, signed_in } = useAuthStore();
+  const { animated, openShop, showNavbar, setOpenShop, setOpenSearch, setOpenAuth } = useLayoutStore();
 
   return (
     <>
@@ -20,7 +22,8 @@ export function ShopNavbar(): React.ReactNode {
 
         <div
           className={cn(
-            'flex h-full w-full justify-center transition-all duration-300',
+            'flex h-full w-full justify-center',
+            animated ? 'transition-all duration-300' : '',
             showNavbar || openShop ? 'opacity-100' : 'opacity-0 pointer-events-none'
           )}
         >
@@ -44,13 +47,23 @@ export function ShopNavbar(): React.ReactNode {
             <Search className="min-h-6.5 min-w-6.5" strokeWidth={1} />
           </Button>
 
-          <ShopCart />
+          {loaded && signed_in ? (
+            <ShopCart />
+          ) : (
+            <button
+              className={cn('h-fit w-fit text-black hover:text-neutral-500 cursor-pointer', animated ? 'transition-all duration-300' : '')}
+              onClick={() => setOpenAuth(true)}
+            >
+              LOG IN
+            </button>
+          )}
         </div>
       </div>
 
       <div
         className={cn(
-          'fixed z-40 top-0 left-0 h-[700px] w-full pt-28 bg-white transition-all duration-300',
+          'fixed z-40 top-0 left-0 h-[700px] w-full pt-28 bg-white',
+          animated ? 'transition-all duration-300' : '',
           openShop ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
@@ -58,7 +71,8 @@ export function ShopNavbar(): React.ReactNode {
       </div>
       <div
         className={cn(
-          'fixed -z-10 bottom-0 left-0 h-[100dvh] w-full bg-black transition-all duration-300',
+          'fixed -z-10 bottom-0 left-0 h-[100dvh] w-full bg-black',
+          animated ? 'transition-all duration-300' : '',
           openShop ? 'opacity-20' : 'opacity-0 pointer-events-none'
         )}
         onClick={() => setOpenShop(false)}

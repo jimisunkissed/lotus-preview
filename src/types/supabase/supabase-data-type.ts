@@ -103,20 +103,53 @@ export type Database = {
           },
         ]
       }
+      user: {
+        Row: {
+          country: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          dial_code: string | null
+          email: string
+          first_name: string | null
+          gender: string | null
+          id: string
+          last_name: string | null
+          phone_number: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          dial_code?: string | null
+          email: string
+          first_name?: string | null
+          gender?: string | null
+          id?: string
+          last_name?: string | null
+          phone_number?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          dial_code?: string | null
+          email?: string
+          first_name?: string | null
+          gender?: string | null
+          id?: string
+          last_name?: string | null
+          phone_number?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      get_channel: {
-        Args: { slug: string }
-        Returns: {
-          channel: Database["public"]["Tables"]["channel"]["Row"]
-          upcoming: Database["public"]["Tables"]["picture"]["Row"][]
-          released: Database["public"]["Tables"]["picture"]["Row"][]
-          pictures: Database["public"]["Tables"]["picture"]["Row"][]
-        }[]
-      }
       get_pictures: {
         Args: {
           channel_id?: number
@@ -144,12 +177,20 @@ export type Database = {
           writer: string | null
         }[]
       }
+      validate_signup_email: {
+        Args: { user_email: string }
+        Returns: Database["public"]["CompositeTypes"]["email_validation_result"]
+      }
     }
     Enums: {
       picture_type: "film" | "series" | "documentary"
     }
     CompositeTypes: {
-      [_ in never]: never
+      email_validation_result: {
+        is_unique: boolean | null
+        existing_count: number | null
+        cleaned_email: string | null
+      }
     }
   }
 }

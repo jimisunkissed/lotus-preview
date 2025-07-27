@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { useAppStore } from '@/hooks/app-store';
+import { useLayoutStore } from '@/hooks/layout-store';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 
 export function ShopMenu(): React.ReactNode {
   const { pathname, asPath } = useRouter();
-  const { openShop, showNavbar, setOpenShop } = useAppStore();
+  const { openShop, showNavbar, setOpenShop } = useLayoutStore();
 
   const secondaryPath = useMemo(() => pathname.split('/')?.[2], [pathname]);
 

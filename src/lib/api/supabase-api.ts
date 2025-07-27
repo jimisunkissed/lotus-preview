@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/config/supabase-config';
+import { supabase } from '@/lib/config/supabase-client-config';
 import {
   AddBatchSupabaseProps,
   AddSingleSupabaseProps,
