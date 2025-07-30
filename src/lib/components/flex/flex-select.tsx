@@ -5,20 +5,33 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 type FlexSelectProps = {
   className?: string;
   placeholder?: string;
-  options: { value: string; label: any }[];
+  options: Record<any, any>[];
+  valueKey?: string | number;
+  labelKey?: string | number;
+  value?: any;
   onValueChange?: (value: string) => void;
 };
 
-export function FlexSelect({ placeholder, options, className }: FlexSelectProps): React.ReactNode {
-  const [value, setValue] = useState<string>('');
+export function FlexSelect({
+  className,
+  placeholder,
+  options,
+  valueKey = 'value',
+  labelKey = 'label',
+  value = '',
+  onValueChange,
+}: FlexSelectProps): React.ReactNode {
   const [open, setOpen] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const displayText = useMemo(() => options.find((opt) => opt.value === value)?.label || placeholder || 'SELECT', [placeholder, value, options]);
+  const displayText = useMemo(
+    () => options.find((opt) => opt?.[valueKey] === value)?.[labelKey] || placeholder || 'SELECT',
+    [placeholder, value, options]
+  );
 
   const handleOptionClick = (event: React.MouseEvent, optionValue: string) => {
     event.stopPropagation();
-    setValue(optionValue);
+    if (onValueChange) onValueChange(optionValue);
     setOpen(false);
   };
 

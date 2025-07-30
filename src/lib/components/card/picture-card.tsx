@@ -47,7 +47,7 @@ export function PictureCard({ picture, ar = 'aspect-[3/2]' }: PictureCardProps):
           <div className="absolute z-20 top-0 left-0 flex flex-col h-full w-full px-6 py-10 gap-3 opacity-0 group-hover:opacity-100 transition-all">
             <PictureDetail
               label="RELEASE DATE"
-              value={picture?.release_date ? format(new Date(picture?.release_date), 'MMM dd, yyyy') : '(TBD)'}
+              value={picture?.release_date ? format(new Date(picture?.release_date), 'MMM dd, yyyy') : '(TBA)'}
             />
 
             {picture.director === picture?.writer ? (

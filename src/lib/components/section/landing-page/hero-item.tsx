@@ -24,7 +24,7 @@ export function HeroItem({ href, category, title, image, ar = 'aspect-square', a
   return (
     <div className={cn('flex', align, 'h-fit w-full gap-[54px]')}>
       <Link href={href} className={cn('group h-fit w-[60%] bg-neutral-100 overflow-hidden', ar, className)}>
-        <img src={image} alt="Item Highlight" className="h-full w-full object-contain group-hover:scale-105 transition-all duration-1000" />
+        <img src={image} alt="Item Highlight" className="h-full w-full object-contain group-hover:scale-102 transition-all duration-1000" />
       </Link>
 
       <div className="flex flex-col flex-1 min-h-full">

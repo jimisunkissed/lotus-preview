@@ -12,7 +12,7 @@ export function FlexImage({ className = '', image, alt }: FlexImageProps): React
   const optimized: string[] = ['https://images.unsplash.com'];
 
   return !image ? null : optimized.some((dom) => image.startsWith(dom)) ? (
-    <Image src={image} alt={alt} fill className={cn('object-cover', className)} />
+    <Image src={image} alt={alt} fill className={cn('absolute top-0 left-0 object-cover', className)} />
   ) : (
     <img src={image} alt={alt} className={cn('absolute top-0 left-0 h-full w-full object-cover', className)} />
   );

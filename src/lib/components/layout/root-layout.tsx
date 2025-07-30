@@ -7,7 +7,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ShopNavbar } from '@/lib/components/navigation/shop-navbar';
 import { useLayoutStore } from '@/hooks/layout-store';
-import { AuthModal } from '@/lib/components/modal/auth-modal';
+import { WatchNavbar } from '@/lib/components/navigation/watch-navbar';
+import { StreamModal } from '@/lib/components/modal/stream-modal';
+import { useTheme } from 'next-themes';
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -18,10 +20,15 @@ const ibmPlexSans = IBM_Plex_Sans({
 export function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
   const { pathname } = useRouter();
   const { openMenu, openAuth, setAnimated, setShowNavbar, setDarkNavbar } = useLayoutStore();
+  const { setTheme } = useTheme();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
 
-  const isShop: boolean = useMemo(() => pathname.startsWith('/shop') || pathname === '/shop', [pathname]);
+  const pathGroup = useMemo(() => {
+    if (pathname.startsWith('/shop') || pathname === '/shop') return 'shop';
+    if (pathname.startsWith('/watch') || pathname === '/watch') return 'watch';
+    else return 'main';
+  }, [pathname]);
 
   useEffect(() => {
     let ticking: boolean = false;
@@ -71,11 +78,14 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
     setTimeout(() => {
       setAnimated(true);
     }, 300);
+
+    if (pathname.startsWith('/watch')) setTheme('dark');
+    else setTheme('light');
   }, [pathname]);
 
   useEffect(() => {
-    setShowNavbar(!isShop ? scrollPosition < 0.2 || direction === 'up' : scrollPosition < 0.05);
-  }, [isShop, scrollPosition, direction]);
+    setShowNavbar(pathGroup !== 'shop' ? scrollPosition < 0.2 || direction === 'up' : scrollPosition < 0.05);
+  }, [pathGroup, scrollPosition, direction]);
 
   useEffect(() => {
     setDarkNavbar(
@@ -88,32 +98,38 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
   return (
     <>
       <div className={cn(ibmPlexSans.className, 'relative flex flex-col w-screen tracking-tight')}>
-        {!isShop ? (
-          <div className="fixed top-0 left-0 h-[100dvh] w-[100dvw] bg-white" />
-        ) : (
-          <div className="fixed top-0 left-0 h-[100dvh] w-[100dvw] bg-neutral-100" />
-        )}
+        <div
+          className={cn(
+            'fixed top-0 left-0 h-[100dvh] w-[100dvw]',
+            pathGroup === 'shop' ? 'bg-neutral-100' : pathGroup === 'watch' ? 'bg-black text-white' : 'bg-white'
+          )}
+        />
 
-        {!pathname.startsWith('/shop') ? (
+        {pathname.startsWith('/shop') ? (
+          <nav className="sticky z-10 top-0 left-0 w-full">
+            <ShopNavbar />
+          </nav>
+        ) : pathname.startsWith('/watch') ? (
+          <nav className="relative z-10">
+            <WatchNavbar />
+            <StreamModal />
+          </nav>
+        ) : (
           <nav className="relative z-10">
             <MainNavbar />
             <MainSearch />
-          </nav>
-        ) : (
-          <nav className="sticky z-10 top-0 left-0 w-full">
-            <ShopNavbar />
           </nav>
         )}
 
         <div className="relative z-0">
           {children}
-          <div className="relative z-10">
-            <MainFooter />
-          </div>
+          {!pathname.startsWith('/watch') && (
+            <div className="relative z-10">
+              <MainFooter />
+            </div>
+          )}
         </div>
       </div>
-
-      <AuthModal />
     </>
   );
 }

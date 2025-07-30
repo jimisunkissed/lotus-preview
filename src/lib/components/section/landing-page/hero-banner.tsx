@@ -14,7 +14,7 @@ export function HeroBanner({ picture }: HeroBannerProps): React.ReactNode {
       <FlexImage
         image={picture?.image_banner || picture?.image_thumbnail}
         alt="Banner Image"
-        className="group-hover:scale-105 transition-all duration-1000"
+        className="group-hover:scale-102 transition-all duration-1000"
       />
 
       <div className="absolute left-12 bottom-12 flex flex-col gap-2">

@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 import '@/styles/globals.css';
 import '@/styles/keyframes.css';
 import { AuthProvider } from '@/lib/components/provider/auth-provider';
+import { ThemeProvider } from 'next-themes';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -22,12 +23,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       {loaded ? (
-        <AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <RootLayout>
             <Component {...pageProps} />
+            <AuthProvider />
             <Toaster />
           </RootLayout>
-        </AuthProvider>
+        </ThemeProvider>
       ) : null}
     </>
   );

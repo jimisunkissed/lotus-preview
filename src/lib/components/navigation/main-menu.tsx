@@ -19,13 +19,14 @@ export function MainMenu(): React.ReactNode {
     { label: 'Docs', path: 'docs' },
     { label: 'Shop', path: 'shop' },
     { label: 'Notes', path: '' },
-    { label: 'Watch', path: 'watch' },
+    { label: 'Watch', path: 'watch/home' },
     { label: 'Account', path: 'account' },
   ];
 
   const clickAccount = (e: React.MouseEvent<HTMLElement>) => {
     if (!loaded || !signed_in) {
       e.preventDefault();
+      setOpenMenu(false);
       setOpenAuth(true);
     } else {
       push('/account');

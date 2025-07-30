@@ -29,7 +29,6 @@ const baseForm = {
 };
 
 export function AuthModal(): React.ReactNode {
-  const { setUserId, setEmail, setFirstName, setLastName } = useAuthStore();
   const { openAuth, setOpenAuth } = useLayoutStore();
   const [active, setActive] = useState<'login' | 'signup'>('login');
   const [form, setForm] = useState<FormProps>(baseForm);
@@ -78,13 +77,6 @@ export function AuthModal(): React.ReactNode {
         },
       });
       if (credential.error) throw new Error(credential.error.message);
-
-      // const { sub, email, first_name, last_name } = credential?.data?.user?.user_metadata ?? {};
-
-      // setUserId(sub);
-      // setEmail(email!);
-      // setFirstName(first_name);
-      // setLastName(last_name);
       setOpenAuth(false);
     } catch (error) {
       setError(error as Error);
@@ -100,7 +92,7 @@ export function AuthModal(): React.ReactNode {
         variant="ghost"
         className={cn(
           'h-fit w-fit p-0 text-2xl',
-          active === stateName ? 'text-black hover:text-black' : 'text-neutral-400 hover:text-neutral-700'
+          active === stateName ? 'text-primary hover:text-primary' : 'text-primary/40 hover:text-primary'
         )}
         text={text.toUpperCase()}
         onClick={() => setActive(stateName as 'login' | 'signup')}

@@ -35,12 +35,12 @@ export function FlexButton({
   };
 
   const VariantConfig = {
-    default: 'bg-black hover:bg-stone-700',
+    default: 'bg-primary hover:bg-muted-foreground',
     secondary: 'bg-stone-50 hover:bg-stone-100',
     outline: 'border-[1.5px] bg-white text-black hover:bg-white hover:border-stone-300',
-    ghost: 'bg-white hover:bg-white text-black hover:text-stone-500',
+    ghost: 'bg-transparent hover:bg-transparent hover:opacity-50',
     destructive: 'bg-white hover:bg-white text-red-600 hover:text-red-700',
-    link: 'bg-white hover:bg-white text-neutral-500 hover:text-black',
+    link: 'text-neutral-500 hover:text-primary',
   };
 
   return (

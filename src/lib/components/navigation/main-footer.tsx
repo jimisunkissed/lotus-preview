@@ -27,7 +27,7 @@ export function MainFooter(): React.ReactNode {
 
         <div className="relative flex flex-col h-full w-full justify-end">
           <div className="absolute top-0 left-0 flex flex-col w-full">
-            <FlexSeparator label="more lotus" theme="dark" />
+            <FlexSeparator label="more lotu5" theme="dark" />
           </div>
           <Mapper links={mid} />
         </div>

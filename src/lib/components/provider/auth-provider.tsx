@@ -4,12 +4,9 @@ import { supabase } from '@/lib/config/supabase-client-config';
 import React, { useEffect } from 'react';
 import { toast } from 'sonner';
 import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { AuthModal } from '@/lib/components/modal/auth-modal';
 
-type AuthProviderProps = {
-  children: React.ReactNode;
-};
-
-export function AuthProvider({ children }: AuthProviderProps): React.ReactNode {
+export function AuthProvider(): React.ReactNode {
   const auth = useAuthStore();
 
   const handleAuthChange = async (_event: AuthChangeEvent, session: Session | null) => {
@@ -58,5 +55,5 @@ export function AuthProvider({ children }: AuthProviderProps): React.ReactNode {
     return () => subscription.unsubscribe();
   }, []);
 
-  return children;
+  return <AuthModal />;
 }

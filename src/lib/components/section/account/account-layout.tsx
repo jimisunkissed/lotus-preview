@@ -2,7 +2,7 @@ import { supabase } from '@/lib/config/supabase-client-config';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { toast } from 'sonner';
 
 type AccountLayoutProps = {
@@ -11,6 +11,13 @@ type AccountLayoutProps = {
 
 export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode {
   const { pathname, push } = useRouter();
+  const secondaryPath = useMemo(() => pathname.split('/')?.[2] ?? 'details', [pathname]);
+
+  const menuList: { label: string; path: string }[] = [
+    { label: 'ACCOUNT DETAILS', path: 'details' },
+    { label: 'RENT', path: 'rent' },
+    { label: 'ORDER', path: 'order' },
+  ];
 
   const logout = async () => {
     try {
@@ -24,15 +31,15 @@ export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode
   return (
     <div className="grid grid-cols-4 min-h-screen w-full px-20 pt-48 gap-12">
       <div className="flex flex-col w-full gap-12 text-5xl font-medium text-neutral-400">
-        <Link
-          href="/account/details"
-          className={cn('w-fit hover:text-black', ['/account', '/account/details'].includes(pathname) ? 'text-black' : '')}
-        >
-          ACCOUNT DETAILS
-        </Link>
-        <Link href="/account/order" className={cn('w-fit hover:text-black', pathname === '/account/order' ? 'text-black' : '')}>
-          ORDER HISTORY
-        </Link>
+        {menuList.map((menu, i) => (
+          <Link
+            key={i}
+            href={`/account/${menu.path}`}
+            className={cn('w-fit hover:text-black transition-all duration-300', secondaryPath === menu.path ? 'text-black' : '')}
+          >
+            {menu.label.toUpperCase()}
+          </Link>
+        ))}
         <button className="w-fit hover:text-black cursor-pointer" onClick={logout}>
           LOGOUT
         </button>

@@ -103,6 +103,219 @@ export type Database = {
           },
         ]
       }
+      picture_season: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: number
+          picture_id: number
+          season_number: number
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          picture_id: number
+          season_number: number
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          picture_id?: number
+          season_number?: number
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "picture_season_picture_id_fkey"
+            columns: ["picture_id"]
+            isOneToOne: false
+            referencedRelation: "picture"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      picture_stream: {
+        Row: {
+          access_level: Database["public"]["Enums"]["picture_stream_access_level"]
+          age_classification: string | null
+          asset_id: string | null
+          category: Database["public"]["Enums"]["picture_stream_category"]
+          created_at: string | null
+          description: string | null
+          duration: number | null
+          episode_number: number | null
+          id: string
+          language: string[] | null
+          picture_id: number
+          playback_id: string | null
+          quality: string[] | null
+          season_id: number | null
+          storage_provider: string | null
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          access_level: Database["public"]["Enums"]["picture_stream_access_level"]
+          age_classification?: string | null
+          asset_id?: string | null
+          category: Database["public"]["Enums"]["picture_stream_category"]
+          created_at?: string | null
+          description?: string | null
+          duration?: number | null
+          episode_number?: number | null
+          id?: string
+          language?: string[] | null
+          picture_id: number
+          playback_id?: string | null
+          quality?: string[] | null
+          season_id?: number | null
+          storage_provider?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          access_level?: Database["public"]["Enums"]["picture_stream_access_level"]
+          age_classification?: string | null
+          asset_id?: string | null
+          category?: Database["public"]["Enums"]["picture_stream_category"]
+          created_at?: string | null
+          description?: string | null
+          duration?: number | null
+          episode_number?: number | null
+          id?: string
+          language?: string[] | null
+          picture_id?: number
+          playback_id?: string | null
+          quality?: string[] | null
+          season_id?: number | null
+          storage_provider?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "picture_stream_picture_id_fkey"
+            columns: ["picture_id"]
+            isOneToOne: false
+            referencedRelation: "picture"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "picture_stream_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "picture_season"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rent_access: {
+        Row: {
+          created_at: string
+          id: string
+          picture_id: number | null
+          rent_expires_at: string | null
+          rent_order_id: string | null
+          rented_at: string | null
+          stream_id: string | null
+          updated_at: string | null
+          user_id: string | null
+          view_expires_at: string | null
+          viewed_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          picture_id?: number | null
+          rent_expires_at?: string | null
+          rent_order_id?: string | null
+          rented_at?: string | null
+          stream_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          view_expires_at?: string | null
+          viewed_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          picture_id?: number | null
+          rent_expires_at?: string | null
+          rent_order_id?: string | null
+          rented_at?: string | null
+          stream_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          view_expires_at?: string | null
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rent_access_picture_id_fkey"
+            columns: ["picture_id"]
+            isOneToOne: false
+            referencedRelation: "picture"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rent_access_rent_order_id_fkey"
+            columns: ["rent_order_id"]
+            isOneToOne: false
+            referencedRelation: "rent_order"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rent_access_stream_id_fkey"
+            columns: ["stream_id"]
+            isOneToOne: false
+            referencedRelation: "picture_stream"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rent_access_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rent_order: {
+        Row: {
+          created_at: string | null
+          id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rent_order_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user: {
         Row: {
           country: string | null
@@ -183,6 +396,16 @@ export type Database = {
       }
     }
     Enums: {
+      picture_stream_access_level: "free" | "premium" | "subscription"
+      picture_stream_category:
+        | "main_content"
+        | "trailer"
+        | "teaser"
+        | "behind_the_scenes"
+        | "interviews"
+        | "deleted_scenes"
+        | "recap"
+        | "preview"
       picture_type: "film" | "series" | "documentary"
     }
     CompositeTypes: {
@@ -315,6 +538,17 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      picture_stream_access_level: ["free", "premium", "subscription"],
+      picture_stream_category: [
+        "main_content",
+        "trailer",
+        "teaser",
+        "behind_the_scenes",
+        "interviews",
+        "deleted_scenes",
+        "recap",
+        "preview",
+      ],
       picture_type: ["film", "series", "documentary"],
     },
   },

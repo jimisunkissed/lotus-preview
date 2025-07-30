@@ -43,27 +43,32 @@ export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): Reac
     );
   };
 
+  const selectWatch = (value: string): void => {
+    if (value === 'onsite')
+      window.open(`${window.location.origin}/watch/picture/${picture.id}-${picture.slug}/1`, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className="flex flex-col min-h-screen w-full">
       <header className="group relative flex aspect-[21/10] w-full items-center justify-center bg-black overflow-hidden">
         <FlexImage
           image={picture?.image_banner || picture?.image_thumbnail}
           alt="Film Banner"
-          className="group-hover:scale-105 transition-all duration-500"
+          className="group-hover:scale-102 transition-all duration-500"
         />
 
         <h1 className="absolute bottom-10 left-10 text-[78px] font-medium text-white leading-none">{picture.title}</h1>
-        <button className="relative z-10 p-2 opacity-50 hover:opacity-100 cursor-pointer transition-all">
-          <IconPlayerPlay className="h-20 w-20 text-white" strokeWidth={0.5} />
+        <button className="relative z-10 p-2 opacity-50 hover:opacity-100 cursor-pointer transition-all duration-300">
+          <IconPlayerPlay className="h-20 w-20 text-white" strokeWidth={1} />
         </button>
       </header>
 
       <main className="flex flex-col w-full p-[50px] gap-[50px]">
         <section className="grid grid-cols-3 gap-[50px]">
           <PictureDetail title={picture.director === picture?.writer ? 'WRITTEN AND DIRECTED BY' : 'DIRECTED BY'} value={picture.director} />
-          <PictureDetail title="YEAR" value={picture?.release_date ? format(new Date(picture.release_date), 'yyyy') : '(TBD)'} />
+          <PictureDetail title="YEAR" value={picture?.release_date ? format(new Date(picture.release_date), 'yyyy') : '(TBA)'} />
           <div>
-            <FlexSelect className="w-88" placeholder="WATCH NOW" options={WatchOptions} />
+            <FlexSelect className="w-88" placeholder="WATCH NOW" options={WatchOptions} onValueChange={selectWatch} />
           </div>
           <PictureDetail title="STARRING" value={(picture?.cast ?? []).filter((_, i) => [0, 2, 6].includes(i))} />
           <PictureDetail title="" value={(picture?.cast ?? []).filter((_, i) => [1, 3, 7].includes(i))} />
