@@ -1,11 +1,9 @@
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { useAuthStore } from '@/hooks/auth-store';
 import { useLayoutStore } from '@/hooks/layout-store';
 import { FlexButton } from '@/lib/components/flex/flex-button';
 import { supabase } from '@/lib/config/supabase-client-config';
 import { cn } from '@/lib/utils';
 import { alphaSpaceRegex, emailRegex, simpleEmailRegex, stateSetter } from '@/lib/utils/general/state-util';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 type MenuButtonProps = {
@@ -92,7 +90,7 @@ export function AuthModal(): React.ReactNode {
         variant="ghost"
         className={cn(
           'h-fit w-fit p-0 text-2xl',
-          active === stateName ? 'text-primary hover:text-primary' : 'text-primary/40 hover:text-primary'
+          active === stateName ? 'text-primary hover:opacity-100' : 'text-primary/40 hover:text-primary'
         )}
         text={text.toUpperCase()}
         onClick={() => setActive(stateName as 'login' | 'signup')}

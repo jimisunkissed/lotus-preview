@@ -18,7 +18,7 @@ export function MainMenu(): React.ReactNode {
     { label: 'Series', path: 'series' },
     { label: 'Docs', path: 'docs' },
     { label: 'Shop', path: 'shop' },
-    { label: 'Notes', path: '' },
+    { label: 'News', path: '' },
     { label: 'Watch', path: 'watch/home' },
     { label: 'Account', path: 'account' },
   ];

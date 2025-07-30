@@ -11,7 +11,7 @@ import { WatchNavbar } from '@/lib/components/navigation/watch-navbar';
 import { StreamModal } from '@/lib/components/modal/stream-modal';
 import { useTheme } from 'next-themes';
 
-const ibmPlexSans = IBM_Plex_Sans({
+export const defaultFont = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700'],
   variable: '--font-ibm-plex-sans',
@@ -78,9 +78,6 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
     setTimeout(() => {
       setAnimated(true);
     }, 300);
-
-    if (pathname.startsWith('/watch')) setTheme('dark');
-    else setTheme('light');
   }, [pathname]);
 
   useEffect(() => {
@@ -97,7 +94,7 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
 
   return (
     <>
-      <div className={cn(ibmPlexSans.className, 'relative flex flex-col w-screen tracking-tight')}>
+      <div className={cn(defaultFont.className, 'relative flex flex-col w-screen tracking-tight')}>
         <div
           className={cn(
             'fixed top-0 left-0 h-[100dvh] w-[100dvw]',
