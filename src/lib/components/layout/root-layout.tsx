@@ -10,6 +10,7 @@ import { useLayoutStore } from '@/hooks/layout-store';
 import { WatchNavbar } from '@/lib/components/navigation/watch-navbar';
 import { StreamModal } from '@/lib/components/modal/stream-modal';
 import { useTheme } from 'next-themes';
+import { routePrefixChecker } from '@/lib/utils/general/url-util';
 
 export const defaultFont = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -102,11 +103,11 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
           )}
         />
 
-        {pathname.startsWith('/shop') ? (
+        {routePrefixChecker(pathname, '/shop') ? (
           <nav className="sticky z-10 top-0 left-0 w-full">
             <ShopNavbar />
           </nav>
-        ) : pathname.startsWith('/watch') ? (
+        ) : routePrefixChecker(pathname, '/watch') ? (
           <nav className="relative z-10">
             <WatchNavbar />
             <StreamModal />
@@ -120,11 +121,11 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
 
         <div className="relative z-0">
           {children}
-          {!pathname.startsWith('/watch') && (
+          {!routePrefixChecker(pathname, '/watch') ? (
             <div className="relative z-10">
               <MainFooter />
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>

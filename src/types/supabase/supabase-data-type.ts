@@ -48,15 +48,24 @@ export type Database = {
         Row: {
           cast: string[] | null
           channel_id: number | null
+          content_rating: string | null
+          country_of_origin: string[] | null
           created_at: string | null
           director: string
+          genre: string | null
           id: number
           image_banner: string | null
           image_thumbnail: string
+          imdb_id: string | null
+          keywords: string[] | null
+          original_language: string | null
+          production_company: string[] | null
           release_date: string | null
           slug: string
+          status: string | null
           synopsis: string | null
           title: string
+          trailer_stream_id: string | null
           type: Database["public"]["Enums"]["picture_type"]
           updated_at: string | null
           writer: string | null
@@ -64,15 +73,24 @@ export type Database = {
         Insert: {
           cast?: string[] | null
           channel_id?: number | null
+          content_rating?: string | null
+          country_of_origin?: string[] | null
           created_at?: string | null
           director: string
+          genre?: string | null
           id?: number
           image_banner?: string | null
           image_thumbnail: string
+          imdb_id?: string | null
+          keywords?: string[] | null
+          original_language?: string | null
+          production_company?: string[] | null
           release_date?: string | null
           slug: string
+          status?: string | null
           synopsis?: string | null
           title: string
+          trailer_stream_id?: string | null
           type: Database["public"]["Enums"]["picture_type"]
           updated_at?: string | null
           writer?: string | null
@@ -80,22 +98,31 @@ export type Database = {
         Update: {
           cast?: string[] | null
           channel_id?: number | null
+          content_rating?: string | null
+          country_of_origin?: string[] | null
           created_at?: string | null
           director?: string
+          genre?: string | null
           id?: number
           image_banner?: string | null
           image_thumbnail?: string
+          imdb_id?: string | null
+          keywords?: string[] | null
+          original_language?: string | null
+          production_company?: string[] | null
           release_date?: string | null
           slug?: string
+          status?: string | null
           synopsis?: string | null
           title?: string
+          trailer_stream_id?: string | null
           type?: Database["public"]["Enums"]["picture_type"]
           updated_at?: string | null
           writer?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "picture_channel_id_fkey"
+            foreignKeyName: "picture_new_channel_id_fkey"
             columns: ["channel_id"]
             isOneToOne: false
             referencedRelation: "channel"
@@ -105,30 +132,60 @@ export type Database = {
       }
       picture_season: {
         Row: {
+          age_rating: string | null
+          channel_id: number | null
           created_at: string | null
-          description: string | null
+          end_date: string | null
+          episode_count: number | null
           id: number
+          image_banner: string | null
+          image_thumbnail: string | null
           picture_id: number
+          release_date: string | null
+          runtime_minutes: number | null
           season_number: number
+          status: string | null
+          synopsis: string | null
           title: string | null
+          trailer_stream_id: string | null
           updated_at: string | null
         }
         Insert: {
+          age_rating?: string | null
+          channel_id?: number | null
           created_at?: string | null
-          description?: string | null
+          end_date?: string | null
+          episode_count?: number | null
           id?: number
+          image_banner?: string | null
+          image_thumbnail?: string | null
           picture_id: number
+          release_date?: string | null
+          runtime_minutes?: number | null
           season_number: number
+          status?: string | null
+          synopsis?: string | null
           title?: string | null
+          trailer_stream_id?: string | null
           updated_at?: string | null
         }
         Update: {
+          age_rating?: string | null
+          channel_id?: number | null
           created_at?: string | null
-          description?: string | null
+          end_date?: string | null
+          episode_count?: number | null
           id?: number
+          image_banner?: string | null
+          image_thumbnail?: string | null
           picture_id?: number
+          release_date?: string | null
+          runtime_minutes?: number | null
           season_number?: number
+          status?: string | null
+          synopsis?: string | null
           title?: string | null
+          trailer_stream_id?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -144,60 +201,87 @@ export type Database = {
       picture_stream: {
         Row: {
           access_level: Database["public"]["Enums"]["picture_stream_access_level"]
-          age_classification: string | null
+          age_rating: string | null
           asset_id: string | null
+          audio_codec: string | null
           category: Database["public"]["Enums"]["picture_stream_category"]
           created_at: string | null
-          description: string | null
-          duration: number | null
+          currency: string | null
           episode_number: number | null
           id: string
           language: string[] | null
           picture_id: number
           playback_id: string | null
+          price_purchase: number | null
+          price_rent: number | null
           quality: string[] | null
+          release_date: string | null
+          resolution: string | null
+          runtime_minutes: number | null
           season_id: number | null
+          status: string | null
           storage_provider: string | null
+          subtitle_languages: string[] | null
+          synopsis: string | null
           title: string | null
           updated_at: string | null
+          video_codec: string | null
         }
         Insert: {
           access_level: Database["public"]["Enums"]["picture_stream_access_level"]
-          age_classification?: string | null
+          age_rating?: string | null
           asset_id?: string | null
+          audio_codec?: string | null
           category: Database["public"]["Enums"]["picture_stream_category"]
           created_at?: string | null
-          description?: string | null
-          duration?: number | null
+          currency?: string | null
           episode_number?: number | null
           id?: string
           language?: string[] | null
           picture_id: number
           playback_id?: string | null
+          price_purchase?: number | null
+          price_rent?: number | null
           quality?: string[] | null
+          release_date?: string | null
+          resolution?: string | null
+          runtime_minutes?: number | null
           season_id?: number | null
+          status?: string | null
           storage_provider?: string | null
+          subtitle_languages?: string[] | null
+          synopsis?: string | null
           title?: string | null
           updated_at?: string | null
+          video_codec?: string | null
         }
         Update: {
           access_level?: Database["public"]["Enums"]["picture_stream_access_level"]
-          age_classification?: string | null
+          age_rating?: string | null
           asset_id?: string | null
+          audio_codec?: string | null
           category?: Database["public"]["Enums"]["picture_stream_category"]
           created_at?: string | null
-          description?: string | null
-          duration?: number | null
+          currency?: string | null
           episode_number?: number | null
           id?: string
           language?: string[] | null
           picture_id?: number
           playback_id?: string | null
+          price_purchase?: number | null
+          price_rent?: number | null
           quality?: string[] | null
+          release_date?: string | null
+          resolution?: string | null
+          runtime_minutes?: number | null
           season_id?: number | null
+          status?: string | null
           storage_provider?: string | null
+          subtitle_languages?: string[] | null
+          synopsis?: string | null
           title?: string | null
           updated_at?: string | null
+          video_codec?: string | null
         }
         Relationships: [
           {
@@ -216,7 +300,7 @@ export type Database = {
           },
         ]
       }
-      rent_access: {
+      stream_access: {
         Row: {
           created_at: string
           id: string
@@ -258,24 +342,10 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "rent_access_picture_id_fkey"
-            columns: ["picture_id"]
-            isOneToOne: false
-            referencedRelation: "picture"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "rent_access_rent_order_id_fkey"
             columns: ["rent_order_id"]
             isOneToOne: false
-            referencedRelation: "rent_order"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "rent_access_stream_id_fkey"
-            columns: ["stream_id"]
-            isOneToOne: false
-            referencedRelation: "picture_stream"
+            referencedRelation: "stream_order"
             referencedColumns: ["id"]
           },
           {
@@ -287,7 +357,7 @@ export type Database = {
           },
         ]
       }
-      rent_order: {
+      stream_order: {
         Row: {
           created_at: string | null
           id: string
@@ -376,15 +446,24 @@ export type Database = {
         Returns: {
           cast: string[] | null
           channel_id: number | null
+          content_rating: string | null
+          country_of_origin: string[] | null
           created_at: string | null
           director: string
+          genre: string | null
           id: number
           image_banner: string | null
           image_thumbnail: string
+          imdb_id: string | null
+          keywords: string[] | null
+          original_language: string | null
+          production_company: string[] | null
           release_date: string | null
           slug: string
+          status: string | null
           synopsis: string | null
           title: string
+          trailer_stream_id: string | null
           type: Database["public"]["Enums"]["picture_type"]
           updated_at: string | null
           writer: string | null

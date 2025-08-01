@@ -1,3 +1,4 @@
+import { routePrefixChecker } from '@/lib/utils/general/url-util';
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
@@ -34,7 +35,8 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && request.nextUrl.pathname.startsWith('/account')) {
+  const protectedRoutes = ['/account', '/watch'];
+  if (!user && protectedRoutes.some((route) => routePrefixChecker(request.nextUrl.pathname, route))) {
     const url = request.nextUrl.clone();
     url.pathname = '/';
     return NextResponse.redirect(url);

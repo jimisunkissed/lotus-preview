@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useStreamStore } from '@/hooks/stream-store';
 import { getSingleSupabase } from '@/lib/api/supabase-api';
 import MuxPlayer from '@mux/mux-player-react';
@@ -39,7 +39,9 @@ export function StreamModal(): React.ReactNode {
       >
         <div className="relative flex h-full w-full items-center justify-center">
           <DialogHeader className="absolute z-10 top-3 left-4 text-md font-medium text-white opacity-0 group-hover:opacity-80 transition-all duration-100 ease-in">
-            {picture?.title} {picture?.release_date ? `(${format(new Date(picture.release_date), 'yyyy')})` : null}
+            <DialogTitle>
+              {picture?.title} {picture?.release_date ? `(${format(new Date(picture.release_date), 'yyyy')})` : null}
+            </DialogTitle>
           </DialogHeader>
 
           {streamUnavailable ? (
@@ -50,15 +52,7 @@ export function StreamModal(): React.ReactNode {
           ) : !stream ? (
             <Loader2 className="text-white h-5 w-5 opacity-80 animate-spin" strokeWidth={3} />
           ) : (
-            <MuxPlayer
-              playbackId={stream?.playback_id!}
-              metadata={{
-                video_id: 'video-id-54321',
-                video_title: 'Test video title',
-                viewer_user_id: 'user-id-007',
-              }}
-              className="h-full w-full"
-            />
+            <MuxPlayer playbackId={stream?.playback_id!} className="h-full w-full bg-black" />
           )}
         </div>
       </DialogContent>
