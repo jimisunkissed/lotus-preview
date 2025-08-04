@@ -1,4 +1,6 @@
 import { Separator } from '@/components/ui/separator';
+import { useAuthStore } from '@/hooks/auth-store';
+import { useLayoutStore } from '@/hooks/layout-store';
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { FlexSelect } from '@/lib/components/flex/flex-select';
 import { PictureProps } from '@/types/supabase/supabase-table-type';
@@ -16,6 +18,9 @@ type PictureDetailProps = {
 };
 
 export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): React.ReactNode {
+  const { signed_in } = useAuthStore();
+  const { setOpenAuth } = useLayoutStore();
+
   const WatchOptions = [
     { value: 'onsite', label: 'ON SITE' },
     { value: 'netflix', label: 'NETFLIX' },
@@ -44,8 +49,10 @@ export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): Reac
   };
 
   const selectWatch = (value: string): void => {
-    if (value === 'onsite')
-      window.open(`${window.location.origin}/watch/picture/${picture.id}-${picture.slug}/1`, '_blank', 'noopener,noreferrer');
+    if (value === 'onsite') {
+      if (signed_in) window.open(`${window.location.origin}/watch/picture/${picture.id}-${picture.slug}`, '_blank', 'noopener,noreferrer');
+      else setOpenAuth(true);
+    }
   };
 
   return (

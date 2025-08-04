@@ -46,9 +46,9 @@ export type Database = {
       }
       picture: {
         Row: {
+          age_rating: string | null
           cast: string[] | null
           channel_id: number | null
-          content_rating: string | null
           country_of_origin: string[] | null
           created_at: string | null
           director: string
@@ -71,9 +71,9 @@ export type Database = {
           writer: string | null
         }
         Insert: {
+          age_rating?: string | null
           cast?: string[] | null
           channel_id?: number | null
-          content_rating?: string | null
           country_of_origin?: string[] | null
           created_at?: string | null
           director: string
@@ -96,9 +96,9 @@ export type Database = {
           writer?: string | null
         }
         Update: {
+          age_rating?: string | null
           cast?: string[] | null
           channel_id?: number | null
-          content_rating?: string | null
           country_of_origin?: string[] | null
           created_at?: string | null
           director?: string
@@ -126,6 +126,13 @@ export type Database = {
             columns: ["channel_id"]
             isOneToOne: false
             referencedRelation: "channel"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "picture_trailer_stream_id_fkey"
+            columns: ["trailer_stream_id"]
+            isOneToOne: false
+            referencedRelation: "picture_stream"
             referencedColumns: ["id"]
           },
         ]
@@ -203,15 +210,20 @@ export type Database = {
           access_level: Database["public"]["Enums"]["picture_stream_access_level"]
           age_rating: string | null
           asset_id: string | null
+          asset_playback_id: string | null
+          asset_provider:
+            | Database["public"]["Enums"]["picture_stream_asset_provider"]
+            | null
           audio_codec: string | null
           category: Database["public"]["Enums"]["picture_stream_category"]
           created_at: string | null
           currency: string | null
           episode_number: number | null
           id: string
+          image_banner: string | null
+          image_thumbnail: string | null
           language: string[] | null
           picture_id: number
-          playback_id: string | null
           price_purchase: number | null
           price_rent: number | null
           quality: string[] | null
@@ -220,10 +232,9 @@ export type Database = {
           runtime_minutes: number | null
           season_id: number | null
           status: string | null
-          storage_provider: string | null
           subtitle_languages: string[] | null
           synopsis: string | null
-          title: string | null
+          title: string
           updated_at: string | null
           video_codec: string | null
         }
@@ -231,15 +242,20 @@ export type Database = {
           access_level: Database["public"]["Enums"]["picture_stream_access_level"]
           age_rating?: string | null
           asset_id?: string | null
+          asset_playback_id?: string | null
+          asset_provider?:
+            | Database["public"]["Enums"]["picture_stream_asset_provider"]
+            | null
           audio_codec?: string | null
           category: Database["public"]["Enums"]["picture_stream_category"]
           created_at?: string | null
           currency?: string | null
           episode_number?: number | null
           id?: string
+          image_banner?: string | null
+          image_thumbnail?: string | null
           language?: string[] | null
           picture_id: number
-          playback_id?: string | null
           price_purchase?: number | null
           price_rent?: number | null
           quality?: string[] | null
@@ -248,10 +264,9 @@ export type Database = {
           runtime_minutes?: number | null
           season_id?: number | null
           status?: string | null
-          storage_provider?: string | null
           subtitle_languages?: string[] | null
           synopsis?: string | null
-          title?: string | null
+          title: string
           updated_at?: string | null
           video_codec?: string | null
         }
@@ -259,15 +274,20 @@ export type Database = {
           access_level?: Database["public"]["Enums"]["picture_stream_access_level"]
           age_rating?: string | null
           asset_id?: string | null
+          asset_playback_id?: string | null
+          asset_provider?:
+            | Database["public"]["Enums"]["picture_stream_asset_provider"]
+            | null
           audio_codec?: string | null
           category?: Database["public"]["Enums"]["picture_stream_category"]
           created_at?: string | null
           currency?: string | null
           episode_number?: number | null
           id?: string
+          image_banner?: string | null
+          image_thumbnail?: string | null
           language?: string[] | null
           picture_id?: number
-          playback_id?: string | null
           price_purchase?: number | null
           price_rent?: number | null
           quality?: string[] | null
@@ -276,10 +296,9 @@ export type Database = {
           runtime_minutes?: number | null
           season_id?: number | null
           status?: string | null
-          storage_provider?: string | null
           subtitle_languages?: string[] | null
           synopsis?: string | null
-          title?: string | null
+          title?: string
           updated_at?: string | null
           video_codec?: string | null
         }
@@ -433,6 +452,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_picture_watch: {
+        Args: { picture_id?: number }
+        Returns: Database["public"]["CompositeTypes"]["picture_watch"]
+      }
       get_pictures: {
         Args: {
           channel_id?: number
@@ -444,9 +467,9 @@ export type Database = {
           length?: number
         }
         Returns: {
+          age_rating: string | null
           cast: string[] | null
           channel_id: number | null
-          content_rating: string | null
           country_of_origin: string[] | null
           created_at: string | null
           director: string
@@ -476,13 +499,14 @@ export type Database = {
     }
     Enums: {
       picture_stream_access_level: "free" | "premium" | "subscription"
+      picture_stream_asset_provider: "mux"
       picture_stream_category:
         | "main_content"
         | "trailer"
         | "teaser"
         | "behind_the_scenes"
-        | "interviews"
-        | "deleted_scenes"
+        | "interview"
+        | "deleted_scene"
         | "recap"
         | "preview"
       picture_type: "film" | "series" | "documentary"
@@ -492,6 +516,15 @@ export type Database = {
         is_unique: boolean | null
         existing_count: number | null
         cleaned_email: string | null
+      }
+      picture_watch: {
+        picture: Database["public"]["Tables"]["picture"]["Row"] | null
+        seasons: Database["public"]["Tables"]["picture_season"]["Row"][] | null
+        stream_main_content:
+          | Database["public"]["Tables"]["picture_stream"]["Row"]
+          | null
+        stream_trailer_id: string | null
+        stream_teaser_id: string | null
       }
     }
   }
@@ -618,13 +651,14 @@ export const Constants = {
   public: {
     Enums: {
       picture_stream_access_level: ["free", "premium", "subscription"],
+      picture_stream_asset_provider: ["mux"],
       picture_stream_category: [
         "main_content",
         "trailer",
         "teaser",
         "behind_the_scenes",
-        "interviews",
-        "deleted_scenes",
+        "interview",
+        "deleted_scene",
         "recap",
         "preview",
       ],

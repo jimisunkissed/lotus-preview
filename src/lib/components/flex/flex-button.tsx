@@ -11,6 +11,7 @@ export type FlexButtonProps = {
   size?: 'default' | 'sm' | 'lg' | 'icon' | 'icon_sm';
   text?: string;
   Icon?: LucideIcon | TablerIcon;
+  children?: React.ReactNode;
   disabled?: boolean;
   loading?: boolean;
 };
@@ -22,6 +23,7 @@ export function FlexButton({
   size = 'default',
   text,
   Icon,
+  children,
   disabled = false,
   loading = false,
   ...props
@@ -57,6 +59,7 @@ export function FlexButton({
         <>
           {Icon ? <Icon className={iconCn} /> : null}
           {text && <p>{text}</p>}
+          {children}
         </>
       )}
     </Button>

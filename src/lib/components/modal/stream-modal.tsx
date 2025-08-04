@@ -12,18 +12,18 @@ export function StreamModal(): React.ReactNode {
   const [picture, setPicture] = useState<PictureProps | undefined>();
   const [stream, setStream] = useState<PictureStreamProps | undefined>();
 
-  const streamUnavailable = useMemo(() => stream?.id && !stream?.playback_id, [stream]);
+  const streamUnavailable = useMemo(() => stream?.id && !stream?.asset_playback_id, [stream]);
 
   const getData = async (): Promise<void> => {
     try {
       const [pic, str] = await Promise.all([
         getSingleSupabase({ tableId: 'picture', id: pictureId }),
-        getSingleSupabase({ tableId: 'picture_stream', id: 'fa173f1d-d99b-40d1-80f4-543e390dadf6' }),
+        getSingleSupabase({ tableId: 'picture_stream', id: streamId }),
       ]);
       setPicture(pic);
       setStream(str);
     } catch (error) {
-      console.error(error instanceof Error ? error.message : 'An unknown error occurred');
+      console.error(error);
     }
   };
 
@@ -34,7 +34,7 @@ export function StreamModal(): React.ReactNode {
   return (
     <Dialog open={openStream} onOpenChange={setOpenStream}>
       <DialogContent
-        className="group flex flex-col h-[80dvh] min-h-[80dvh] w-[80dvw] min-w-[80dvw] p-0 bg-black overflow-hidden"
+        className="group flex flex-col h-[80dvh] max-h-[80dvh] w-[80dvw] min-w-[80dvw] p-0 bg-black overflow-hidden"
         showCloseButton={false}
       >
         <div className="relative flex h-full w-full items-center justify-center">
@@ -49,10 +49,10 @@ export function StreamModal(): React.ReactNode {
               <Construction className="h-8 w-8" />
               <p className="text-sm">You do not have access to this content</p>
             </div>
-          ) : !stream ? (
+          ) : !stream || stream?.id !== streamId ? (
             <Loader2 className="text-white h-5 w-5 opacity-80 animate-spin" strokeWidth={3} />
           ) : (
-            <MuxPlayer playbackId={stream?.playback_id!} className="h-full w-full bg-black" />
+            <MuxPlayer playbackId={stream?.asset_playback_id!} className="h-full w-full bg-black" accentColor="#262626" />
           )}
         </div>
       </DialogContent>

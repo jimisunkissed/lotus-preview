@@ -23,7 +23,7 @@ export const useLayoutStore = create<LayoutStoreProps>((set) => ({
   openShop: false,
   openSearch: false,
   openAuth: false,
-  showNavbar: false,
+  showNavbar: true,
   darkNavbar: false,
   setAnimated: (value: boolean) => set({ animated: value }),
   setOpenMenu: (value: boolean) => set({ openMenu: value }),

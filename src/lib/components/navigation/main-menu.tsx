@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/hooks/auth-store';
 import { useLayoutStore } from '@/hooks/layout-store';
+import { protectedRoutes } from '@/lib/config/route-config';
 import { cn } from '@/lib/utils';
+import { routePrefixChecker } from '@/lib/utils/general/url-util';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
@@ -14,22 +16,24 @@ export function MainMenu(): React.ReactNode {
   const secondaryPath = useMemo(() => pathname.split('/')?.[1], [pathname]);
 
   const menuList: { label: string; path: string }[] = [
-    { label: 'Films', path: 'films' },
-    { label: 'Series', path: 'series' },
-    { label: 'Docs', path: 'docs' },
-    { label: 'Shop', path: 'shop' },
-    { label: 'News', path: '' },
-    { label: 'Watch', path: 'watch/home' },
-    { label: 'Account', path: 'account' },
+    { label: 'Films', path: '/films' },
+    { label: 'Series', path: '/series' },
+    { label: 'Docs', path: '/docs' },
+    { label: 'Shop', path: '/shop' },
+    { label: 'News', path: '/news' },
+    { label: 'Watch', path: '/watch' },
+    { label: 'Account', path: '/account' },
   ];
 
-  const clickAccount = (e: React.MouseEvent<HTMLElement>) => {
+  const checkPath = (e: React.MouseEvent<HTMLElement>, path: string) => {
+    if (!protectedRoutes.some((route) => routePrefixChecker(path, route))) return;
+
     if (!loaded || !signed_in) {
       e.preventDefault();
       setOpenMenu(false);
       setOpenAuth(true);
     } else {
-      push('/account');
+      push(path);
     }
   };
 
@@ -101,12 +105,9 @@ export function MainMenu(): React.ReactNode {
         {menuList.map((menu, i) => (
           <Link
             key={i}
-            href={`/${menu.path}`}
+            href={menu.path}
             className="w-full text-7xl font-medium text-white hover:text-neutral-300 transition-all"
-            onClick={(e) => {
-              if (menu.path === 'account') clickAccount(e);
-              else setOpenMenu(false);
-            }}
+            onClick={(e) => checkPath(e, menu.path)}
           >
             {menu.label}
           </Link>

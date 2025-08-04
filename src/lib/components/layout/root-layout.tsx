@@ -9,7 +9,6 @@ import { ShopNavbar } from '@/lib/components/navigation/shop-navbar';
 import { useLayoutStore } from '@/hooks/layout-store';
 import { WatchNavbar } from '@/lib/components/navigation/watch-navbar';
 import { StreamModal } from '@/lib/components/modal/stream-modal';
-import { useTheme } from 'next-themes';
 import { routePrefixChecker } from '@/lib/utils/general/url-util';
 
 export const defaultFont = IBM_Plex_Sans({
@@ -21,15 +20,8 @@ export const defaultFont = IBM_Plex_Sans({
 export function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
   const { pathname } = useRouter();
   const { openMenu, openAuth, setAnimated, setShowNavbar, setDarkNavbar } = useLayoutStore();
-  const { setTheme } = useTheme();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
-
-  const pathGroup = useMemo(() => {
-    if (pathname.startsWith('/shop') || pathname === '/shop') return 'shop';
-    if (pathname.startsWith('/watch') || pathname === '/watch') return 'watch';
-    else return 'main';
-  }, [pathname]);
 
   useEffect(() => {
     let ticking: boolean = false;
@@ -56,14 +48,10 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
       }
     };
 
-    if (openMenu || openAuth) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    document.body.style.overflow = 'unset';
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-      window.addEventListener('wheel', handleWheel, { passive: true });
-      window.addEventListener('scroll', handleScroll, { passive: true });
-    }
 
     handleScroll();
 
@@ -72,7 +60,7 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
       window.removeEventListener('scroll', handleScroll);
       document.body.style.overflow = 'unset';
     };
-  }, [openMenu, openAuth]);
+  }, []);
 
   useEffect(() => {
     setAnimated(false);
@@ -82,15 +70,11 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
   }, [pathname]);
 
   useEffect(() => {
-    setShowNavbar(pathGroup !== 'shop' ? scrollPosition < 0.2 || direction === 'up' : scrollPosition < 0.05);
-  }, [pathGroup, scrollPosition, direction]);
+    setShowNavbar(routePrefixChecker(pathname, '/shop') ? scrollPosition < 0.05 : scrollPosition < 0.2 || direction === 'up');
+  }, [scrollPosition, direction, pathname]);
 
   useEffect(() => {
-    setDarkNavbar(
-      scrollPosition > 0.6 ||
-        ['/[slug]', '/films', '/series', '/docs'].includes(pathname) ||
-        ['/account'].some((path) => pathname.startsWith(path))
-    );
+    setDarkNavbar(scrollPosition > 0.6 || ['/films', '/series', '/docs'].includes(pathname));
   }, [scrollPosition, pathname]);
 
   return (
@@ -99,7 +83,11 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
         <div
           className={cn(
             'fixed top-0 left-0 h-[100dvh] w-[100dvw]',
-            pathGroup === 'shop' ? 'bg-neutral-100' : pathGroup === 'watch' ? 'bg-black text-white' : 'bg-white'
+            routePrefixChecker(pathname, '/shop')
+              ? 'bg-neutral-100'
+              : routePrefixChecker(pathname, '/watch')
+              ? 'bg-black text-white'
+              : 'bg-white'
           )}
         />
 

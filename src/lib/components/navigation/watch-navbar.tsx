@@ -8,7 +8,13 @@ import React from 'react';
 export function WatchNavbar(): React.ReactNode {
   const { pathname } = useRouter();
   const { loaded, signed_in } = useAuthStore();
-  const { animated, showNavbar, darkNavbar, setOpenAuth } = useLayoutStore();
+  const { animated, showNavbar, setOpenAuth } = useLayoutStore();
+
+  const menuList: { label: string; path: string }[] = [
+    { label: 'Home', path: '' },
+    { label: 'Browse', path: '/browse' },
+    { label: 'Library', path: '/library' },
+  ];
 
   return (
     !pathname.startsWith('/watch/picture') && (
@@ -22,13 +28,13 @@ export function WatchNavbar(): React.ReactNode {
       >
         <div className={cn('grid grid-cols-3 h-full w-full')}>
           <div className="flex gap-16">
-            {['home', 'browse', 'library'].map((link, i) => (
+            {menuList.map((menu, i) => (
               <Link
                 key={i}
-                href={`/watch/${link}`}
+                href={`/watch${menu.path}`}
                 className={cn('h-fit text-[15px] opacity-75 hover:opacity-100', animated ? 'transition-all duration-300' : '')}
               >
-                {link.toUpperCase()}
+                {menu.label.toUpperCase()}
               </Link>
             ))}
           </div>
@@ -36,10 +42,7 @@ export function WatchNavbar(): React.ReactNode {
           <div className="flex w-full justify-center">
             <Link href="/" className={cn('h-fit text-4xl font-bold')}>
               <div className="h-5 w-fit overflow-hidden">
-                <img
-                  src="/lotu5-logo.png"
-                  className={cn('h-full w-fit object-contain', animated ? 'transition-all duration-300' : '', darkNavbar ? 'invert' : '')}
-                />
+                <img src="/lotu5-logo.png" className="h-full w-fit object-contain" />
               </div>
             </Link>
           </div>

@@ -46,6 +46,7 @@ export function AuthModal(): React.ReactNode {
       if (credential.error) throw new Error(credential.error.message);
 
       setOpenAuth(false);
+      window.location.reload();
     } catch (error) {
       setError(error as Error);
     } finally {
@@ -76,6 +77,7 @@ export function AuthModal(): React.ReactNode {
       });
       if (credential.error) throw new Error(credential.error.message);
       setOpenAuth(false);
+      window.location.reload();
     } catch (error) {
       setError(error as Error);
     } finally {

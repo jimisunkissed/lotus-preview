@@ -4,7 +4,7 @@ import React from 'react';
 
 type FlexImageProps = {
   className?: string;
-  image?: string;
+  image?: string | null;
   alt: string;
 };
 

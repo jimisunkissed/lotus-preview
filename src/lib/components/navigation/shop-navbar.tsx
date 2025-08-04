@@ -71,11 +71,13 @@ export function ShopNavbar(): React.ReactNode {
       </div>
       <div
         className={cn(
-          'fixed -z-10 bottom-0 left-0 h-[100dvh] w-full bg-black',
+          'fixed z-10 bottom-0 left-0 h-[100dvh] w-[100dvw] bg-black',
           animated ? 'transition-all duration-300' : '',
           openShop ? 'opacity-20' : 'opacity-0 pointer-events-none'
         )}
         onClick={() => setOpenShop(false)}
+        onWheel={(e) => e.preventDefault()}
+        onScroll={(e) => e.preventDefault()}
       />
     </>
   );
