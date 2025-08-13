@@ -19,7 +19,7 @@ export const defaultFont = IBM_Plex_Sans({
 
 export function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
   const { pathname } = useRouter();
-  const { openMenu, openAuth, setAnimated, setShowNavbar, setDarkNavbar } = useLayoutStore();
+  const { openMenu, openShop, openAuth, setAnimated, setOpenMenu, setOpenShop, setOpenSearch, setShowNavbar, setDarkNavbar } = useLayoutStore();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
 
@@ -48,21 +48,26 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
       }
     };
 
-    document.body.style.overflow = 'unset';
-    window.addEventListener('wheel', handleWheel, { passive: true });
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-
-    handleScroll();
+    if (openMenu || openShop || openAuth) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+      window.addEventListener('wheel', handleWheel, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+    }
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('scroll', handleScroll);
       document.body.style.overflow = 'unset';
     };
-  }, []);
+  }, [openMenu, openShop, openAuth]);
 
   useEffect(() => {
+    setOpenMenu(false);
+    setOpenShop(false);
+    setOpenSearch(false);
     setAnimated(false);
     setTimeout(() => {
       setAnimated(true);

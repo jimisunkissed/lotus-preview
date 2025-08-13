@@ -37,19 +37,6 @@ export function MainMenu(): React.ReactNode {
     }
   };
 
-  useEffect(() => {
-    setOpenMenu(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (openMenu) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'unset';
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [openMenu]);
-
   return (
     <>
       <div className="fixed z-50 flex left-10 top-[50px]">

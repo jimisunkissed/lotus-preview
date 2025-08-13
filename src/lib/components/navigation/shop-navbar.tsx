@@ -76,8 +76,6 @@ export function ShopNavbar(): React.ReactNode {
           openShop ? 'opacity-20' : 'opacity-0 pointer-events-none'
         )}
         onClick={() => setOpenShop(false)}
-        onWheel={(e) => e.preventDefault()}
-        onScroll={(e) => e.preventDefault()}
       />
     </>
   );

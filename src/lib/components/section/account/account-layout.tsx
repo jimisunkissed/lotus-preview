@@ -1,8 +1,9 @@
+import { useAuthStore } from '@/hooks/auth-store';
 import { supabase } from '@/lib/config/supabase-client-config';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { toast } from 'sonner';
 
 type AccountLayoutProps = {
@@ -11,6 +12,7 @@ type AccountLayoutProps = {
 
 export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode {
   const { pathname, push } = useRouter();
+  const { loaded, signed_in } = useAuthStore();
   const secondaryPath = useMemo(() => pathname.split('/')?.[2] ?? 'details', [pathname]);
 
   const menuList: { label: string; path: string }[] = [
@@ -22,11 +24,14 @@ export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode
   const logout = async () => {
     try {
       await supabase.auth.signOut();
-      window.location.reload();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An unknown error occurred');
     }
   };
+
+  useEffect(() => {
+    if (loaded && !signed_in) push('/');
+  }, [loaded, signed_in]);
 
   return (
     <div className="grid grid-cols-4 min-h-screen w-full px-20 pt-48 gap-12">

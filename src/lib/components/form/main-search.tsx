@@ -2,23 +2,17 @@ import { Button } from '@/components/ui/button';
 import { useLayoutStore } from '@/hooks/layout-store';
 import { cn } from '@/lib/utils';
 import { ArrowRight, X } from 'lucide-react';
-import { useRouter } from 'next/router';
 import React, { useEffect, useRef } from 'react';
 
 export function MainSearch(): React.ReactNode {
-  const { pathname } = useRouter();
   const { animated, openSearch, setOpenSearch } = useLayoutStore();
-  const inputRef = useRef<HTMLInputElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (openSearch && inputRef?.current) {
       inputRef.current.focus();
     }
   }, [openSearch]);
-
-  useEffect(() => {
-    setOpenSearch(false);
-  }, [pathname]);
 
   return (
     <div
