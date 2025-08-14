@@ -8,7 +8,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 
 type HeroMainProps = {
-  pictures: PictureProps[];
+  pictures: Pick<PictureProps, 'id' | 'slug' | 'title' | 'type' | 'release_date' | 'image_banner'>[];
 };
 
 export function HeroMain({ pictures }: HeroMainProps): React.ReactNode {

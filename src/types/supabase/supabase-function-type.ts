@@ -62,6 +62,7 @@ export type StaticKeys = Record<string, unknown>;
 export type GetSingleSupabaseProps<T extends TableId> = {
   tableId: T;
   id: any;
+  select?: string;
   staticKeys?: StaticKeys;
 };
 
@@ -71,6 +72,7 @@ export type GetBatchSupabaseProps<T extends TableId> = {
   sort?: TableSort;
   page?: number;
   length?: number;
+  select?: string;
   staticKeys?: StaticKeys;
   nullsFirst?: boolean;
 };

@@ -3,7 +3,7 @@ import { routePrefixChecker } from '@/lib/utils/general/url-util';
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const SUPABASE_URL: string = process.env.NEXT_PUBLIC_SUPABASE_PROJECT_URL!;
+const SUPABASE_URL: string = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_KEY: string = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 
 export async function updateSession(request: NextRequest) {

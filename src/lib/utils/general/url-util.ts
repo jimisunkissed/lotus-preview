@@ -5,7 +5,7 @@ export const routePrefixChecker = (route: string, prefix: string) => {
   return route.startsWith(routePrefix) || prefix === route;
 };
 
-export const pictureLink = (picture: PictureProps): string => {
+export const pictureLink = (picture: Pick<PictureProps, 'id' | 'type' | 'slug'>): string => {
   const config = {
     film: 'films',
     series: 'series',

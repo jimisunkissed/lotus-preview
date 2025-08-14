@@ -1,3 +1,10 @@
 # supabase
 npx supabase gen types typescript --project-id {project-id} --schema public > src/types/supabase/supabase-data-type.ts
 dotenv -e .env -- bash -c 'npx supabase gen types typescript --project-id $NEXT_PUBLIC_SUPABASE_PROJECT_ID --schema public > src/types/supabase/supabase-data-type.ts'
+
+
+# deploy
+dotenv -e .env -- \
+    fly deploy \
+    --build-secret NEXT_PUBLIC_SUPABASE_URL="$(grep NEXT_PUBLIC_SUPABASE_URL .env | cut -d '=' -f2)" \
+    --build-secret NEXT_PUBLIC_SUPABASE_KEY="$(grep NEXT_PUBLIC_SUPABASE_KEY .env | cut -d '=' -f2)"

@@ -18,10 +18,11 @@ import { formatISO } from 'date-fns';
 export const getSingleSupabase = async <T extends TableId>({
   tableId,
   id,
+  select = '*',
   staticKeys = {},
 }: GetSingleSupabaseProps<T>): Promise<TableRow<T>> => {
   try {
-    const { data, error } = await supabase.from(tableId).select().eq('id', id).single();
+    const { data, error } = await supabase.from(tableId).select(select).eq('id', id).single();
     if (error) throw error;
     checkStaticKeys([data], staticKeys);
 
@@ -37,11 +38,12 @@ export const getBatchSupabase = async <T extends TableId>({
   sort,
   page = 1,
   length = 10,
+  select = '*',
   staticKeys = {},
   nullsFirst = false,
 }: GetBatchSupabaseProps<T>): Promise<TableRow<T>[]> => {
   try {
-    let query = supabase.from(tableId).select();
+    let query = supabase.from(tableId).select(select);
     filters = filterStaticKeys(filters, staticKeys);
     if (filters && Array.isArray(filters))
       filters.forEach(({ op, column, value }) => {
@@ -114,7 +116,7 @@ export const setSingleSupabase = async <T extends TableId>({
     const { created_at, updated_at, ...cleanRow } = row;
     const timestamp = formatISO(new Date());
 
-    const existingRow = await getSingleSupabase({ tableId, id });
+    const existingRow = await getSingleSupabase({ tableId, id, select: ['id', ...Object.keys(staticKeys)].join(',') });
     if (existingRow) checkStaticKeys([existingRow], staticKeys);
 
     const setRow: TableInsert<T> = addStaticKeys(
@@ -144,7 +146,11 @@ export const setBatchSupabase = async <T extends TableId>({
     const timestamp = formatISO(new Date());
 
     const ids = rows.map((row) => row.id);
-    const existingRows = (await getBatchSupabase({ tableId, filters: [{ column: 'id', op: 'in', value: ids }] })) as TableInsert<T>[];
+    const existingRows = (await getBatchSupabase({
+      tableId,
+      filters: [{ column: 'id', op: 'in', value: ids }],
+      select: ['id', ...Object.keys(staticKeys)].join(','),
+    })) as TableInsert<T>[];
     checkStaticKeys(existingRows, staticKeys);
 
     const existingIds = new Set(existingRows?.map((row) => row.id));
@@ -177,7 +183,7 @@ export const deleteSingleSupabase = async <T extends TableId>({
   staticKeys = {},
 }: DeleteSingleSupabaseProps<T>): Promise<{ id: any }> => {
   try {
-    await getSingleSupabase({ tableId, id, staticKeys });
+    await getSingleSupabase({ tableId, id, select: 'id', staticKeys });
     const { error } = await supabase.from(tableId).delete().eq('id', id).single();
     if (error) throw error;
 
@@ -193,7 +199,12 @@ export const deleteBatchSupabase = async <T extends TableId>({
   staticKeys = {},
 }: DeleteBatchSupabaseProps<T>): Promise<{ ids: any }[]> => {
   try {
-    const existingRows = await getBatchSupabase({ tableId, filters: [{ column: 'id', op: 'in', value: ids }], staticKeys });
+    const existingRows = await getBatchSupabase({
+      tableId,
+      filters: [{ column: 'id', op: 'in', value: ids }],
+      select: ['id', ...Object.keys(staticKeys)].join(','),
+      staticKeys,
+    });
     if (existingRows.length < ids.length) throw { code: 400, name: 'Bad Request', message: 'Check your ids again' } as Error;
 
     const { error } = await supabase.from(tableId).delete().in('id', ids).select('id');

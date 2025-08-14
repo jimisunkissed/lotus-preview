@@ -24,6 +24,7 @@ export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode
   const logout = async () => {
     try {
       await supabase.auth.signOut();
+      window.location.reload();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An unknown error occurred');
     }
