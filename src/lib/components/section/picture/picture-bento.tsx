@@ -1,5 +1,5 @@
 import { PictureCard } from '@/lib/components/card/picture-card';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 
 import React from 'react';
 

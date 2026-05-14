@@ -1,6 +1,6 @@
 import { getPicturesLocal } from '@/lib/api/local-api';
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 import { GetStaticProps } from 'next';
 import React from 'react';
 

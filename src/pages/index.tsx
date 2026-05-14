@@ -3,7 +3,7 @@ import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highli
 import { HeroMain } from '@/lib/components/section/landing-page/hero-main';
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import { GetStaticProps } from 'next';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 import { getSingleLocal } from '@/lib/api/local-api';
 
 type Props = {

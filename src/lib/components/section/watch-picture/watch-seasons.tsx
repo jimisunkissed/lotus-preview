@@ -1,5 +1,5 @@
 import { FlexImage } from '@/lib/components/flex/flex-image';
-import { PictureProps, PictureSeasonProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps, PictureSeasonProps } from '@/types/table-type';
 import Link from 'next/link';
 import React from 'react';
 

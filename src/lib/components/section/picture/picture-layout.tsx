@@ -1,6 +1,6 @@
 import { PictureBento } from '@/lib/components/section/picture/picture-bento';
 import { PictureList } from '@/lib/components/section/picture/picture-list';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 import React from 'react';
 
 type PictureLayoutProps = {

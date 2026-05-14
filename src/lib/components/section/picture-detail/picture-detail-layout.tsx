@@ -3,7 +3,7 @@ import { useAuthStore } from '@/hooks/auth-store';
 import { useLayoutStore } from '@/hooks/layout-store';
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { FlexSelect } from '@/lib/components/flex/flex-select';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 import { IconBrandFacebook, IconBrandTwitter, IconMail, IconPlayerPlay } from '@tabler/icons-react';
 import { format } from 'date-fns';
 import React from 'react';

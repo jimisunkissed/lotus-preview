@@ -4,7 +4,7 @@ import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highli
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
 import { PictureList } from '@/lib/components/section/picture/picture-list';
-import { ChannelProps, PictureProps } from '@/types/supabase/supabase-table-type';
+import { ChannelProps, PictureProps } from '@/types/table-type';
 import { ProductsData } from '@/types/temp-shop';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';

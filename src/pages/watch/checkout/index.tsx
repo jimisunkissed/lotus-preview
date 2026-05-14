@@ -3,7 +3,7 @@ import { FlexButton } from '@/lib/components/flex/flex-button';
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { PaymentMethod } from '@/lib/components/section/checkout/payment-method';
 import { formatNumberSuffix } from '@/lib/utils/general/number-util';
-import { PictureStreamProps } from '@/types/supabase/supabase-table-type';
+import { PictureStreamProps } from '@/types/table-type';
 import { Film } from 'lucide-react';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';

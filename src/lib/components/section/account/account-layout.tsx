@@ -1,5 +1,4 @@
 import { useAuthStore } from '@/hooks/auth-store';
-import { supabase } from '@/lib/config/supabase-client-config';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -23,7 +22,6 @@ export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode
 
   const logout = async () => {
     try {
-      await supabase.auth.signOut();
       window.location.reload();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An unknown error occurred');

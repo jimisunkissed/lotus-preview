@@ -1,6 +1,6 @@
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { pictureLink } from '@/lib/utils/general/url-util';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 import Link from 'next/link';
 import React from 'react';
 

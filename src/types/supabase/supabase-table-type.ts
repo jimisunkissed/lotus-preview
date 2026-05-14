@@ -1,9 +1,0 @@
-import { Database } from '@/types/supabase/supabase-data-type';
-
-export type ChannelProps = Database['public']['Tables']['channel']['Row'];
-export type PictureProps = Database['public']['Tables']['picture']['Row'];
-export type PictureSeasonProps = Database['public']['Tables']['picture_season']['Row'];
-export type PictureStreamProps = Database['public']['Tables']['picture_stream']['Row'];
-export type PictureWatchProps = Database['public']['Functions']['get_picture_watch']['Returns'];
-export type StreamAccessProps = Database['public']['Tables']['stream_access']['Row'];
-export type StreamOrderProps = Database['public']['Tables']['stream_order']['Row'];

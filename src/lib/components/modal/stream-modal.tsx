@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useStreamStore } from '@/hooks/stream-store';
 import MuxPlayer from '@mux/mux-player-react';
-import { PictureProps, PictureStreamProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps, PictureStreamProps } from '@/types/table-type';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Construction, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';

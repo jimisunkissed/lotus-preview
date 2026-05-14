@@ -1,7 +1,6 @@
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useLayoutStore } from '@/hooks/layout-store';
 import { FlexButton } from '@/lib/components/flex/flex-button';
-import { supabase } from '@/lib/config/supabase-client-config';
 import { cn } from '@/lib/utils';
 import { alphaSpaceRegex, emailRegex, simpleEmailRegex, stateSetter } from '@/lib/utils/general/state-util';
 import React, { useEffect, useState } from 'react';
@@ -34,55 +33,11 @@ export function AuthModal(): React.ReactNode {
   const [error, setError] = useState<Error | null>(null);
 
   const login = async () => {
-    setLoading(true);
-    try {
-      const validate = await supabase.rpc('validate_signup_email', { user_email: form.email });
-      if (!validate.data?.cleaned_email) throw new Error('Please use a valid email');
-
-      const credential = await supabase.auth.signInWithPassword({
-        email: validate.data?.cleaned_email,
-        password: form.password,
-      });
-      if (credential.error) throw new Error(credential.error.message);
-
-      setOpenAuth(false);
-      window.location.reload()
-    } catch (error) {
-      setError(error as Error);
-    } finally {
-      setLoading(false);
-    }
+    setError(new Error('Authentication is not available in preview mode'));
   };
 
   const signup = async () => {
-    try {
-      setLoading(true);
-
-      if (Object.values(form).some((v) => !v)) throw new Error('Please fill out the forms');
-      if (form.password !== form.password_confirm) throw new Error('Password does not match password confirmation');
-      if (!emailRegex.test(form.email)) throw new Error('Please use a valid email');
-
-      const validate = await supabase.rpc('validate_signup_email', { user_email: form.email });
-      if (!validate.data?.is_unique || !validate.data?.cleaned_email) throw new Error('Email is already credentialed');
-
-      const credential = await supabase.auth.signUp({
-        email: validate.data?.cleaned_email,
-        password: form.password,
-        options: {
-          data: {
-            first_name: form.first_name,
-            last_name: form.last_name,
-          },
-        },
-      });
-      if (credential.error) throw new Error(credential.error.message);
-      setOpenAuth(false);
-      window.location.reload();
-    } catch (error) {
-      setError(error as Error);
-    } finally {
-      setLoading(false);
-    }
+    setError(new Error('Authentication is not available in preview mode'));
   };
 
   const MenuButton = ({ text }: MenuButtonProps) => {

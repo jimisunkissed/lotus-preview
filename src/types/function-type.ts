@@ -1,6 +1,22 @@
-import { Database } from '@/types/supabase/supabase-data-type';
+import {
+  ChannelProps,
+  PictureProps,
+  PictureSeasonProps,
+  PictureStreamProps,
+  StreamAccessProps,
+  StreamOrderProps,
+  UserProps,
+} from '@/types/table-type';
 
-type Tables = Database['public']['Tables'];
+type Tables = {
+  channel: { Row: ChannelProps; Insert: Partial<ChannelProps>; Update: Partial<ChannelProps> }
+  picture: { Row: PictureProps; Insert: Partial<PictureProps>; Update: Partial<PictureProps> }
+  picture_season: { Row: PictureSeasonProps; Insert: Partial<PictureSeasonProps>; Update: Partial<PictureSeasonProps> }
+  picture_stream: { Row: PictureStreamProps; Insert: Partial<PictureStreamProps>; Update: Partial<PictureStreamProps> }
+  stream_access: { Row: StreamAccessProps; Insert: Partial<StreamAccessProps>; Update: Partial<StreamAccessProps> }
+  stream_order: { Row: StreamOrderProps; Insert: Partial<StreamOrderProps>; Update: Partial<StreamOrderProps> }
+  user: { Row: UserProps; Insert: Partial<UserProps>; Update: Partial<UserProps> }
+}
 
 export type TableId = keyof Tables;
 export type ProtectedTableId = {
@@ -8,22 +24,22 @@ export type ProtectedTableId = {
 }[TableId];
 
 export type TableRow<T extends TableId> = Tables[T]['Row'];
-export type TableInsert<T extends TableId> = Tables[T] extends { Insert: any } ? Tables[T]['Insert'] : never;
+export type TableInsert<T extends TableId> = Tables[T]['Insert'];
 export type TableUpdate<T extends TableId> = Tables[T]['Update'];
 
 type FilterFunction =
-  | 'eq' // Equal to
-  | 'gt' // Greater than
-  | 'lt' // Less than
-  | 'gte' // Greater than or equal to
-  | 'lte' // Less than or equal to
-  | 'like' // Case sensitive pattern matching
-  | 'ilike' // Case insensitive pattern matching
-  | 'is' // Is (typically used for null checks)
-  | 'in' // In array of values
-  | 'neq' // Not equal to
-  | 'contains' // Array contains
-  | 'containedBy' // Array is contained by
+  | 'eq'
+  | 'gt'
+  | 'lt'
+  | 'gte'
+  | 'lte'
+  | 'like'
+  | 'ilike'
+  | 'is'
+  | 'in'
+  | 'neq'
+  | 'contains'
+  | 'containedBy'
   | 'or'
   | 'not';
 
@@ -59,14 +75,14 @@ export type TableSort = {
 
 export type StaticKeys = Record<string, unknown>;
 
-export type GetSingleSupabaseProps<T extends TableId> = {
+export type GetSingleProps<T extends TableId> = {
   tableId: T;
   id: any;
   select?: string;
   staticKeys?: StaticKeys;
 };
 
-export type GetBatchSupabaseProps<T extends TableId> = {
+export type GetBatchProps<T extends TableId> = {
   tableId: T;
   filters?: TableFilter[];
   sort?: TableSort;
@@ -77,44 +93,44 @@ export type GetBatchSupabaseProps<T extends TableId> = {
   nullsFirst?: boolean;
 };
 
-export type AddSingleSupabaseProps<T extends TableId> = {
+export type AddSingleProps<T extends TableId> = {
   tableId: T;
   row: TableInsert<T>;
   staticKeys?: StaticKeys;
 };
 
-export type AddBatchSupabaseProps<T extends TableId> = {
+export type AddBatchProps<T extends TableId> = {
   tableId: T;
   rows: TableInsert<T>[];
   staticKeys?: StaticKeys;
 };
 
-export type SetSingleSupabaseProps<T extends TableId> = {
+export type SetSingleProps<T extends TableId> = {
   tableId: T;
   id: any;
   row: TableInsert<T>;
   staticKeys?: StaticKeys;
 };
 
-export type SetBatchSupabaseProps<T extends TableId> = {
+export type SetBatchProps<T extends TableId> = {
   tableId: T;
   rows: TableInsert<T>[];
   staticKeys?: StaticKeys;
 };
 
-export type DeleteSingleSupabaseProps<T extends TableId> = {
+export type DeleteSingleProps<T extends TableId> = {
   tableId: T;
   id: any;
   staticKeys?: StaticKeys;
 };
 
-export type DeleteBatchSupabaseProps<T extends TableId> = {
+export type DeleteBatchProps<T extends TableId> = {
   tableId: T;
   ids: any[];
   staticKeys?: StaticKeys;
 };
 
-export type SupabaseStorageResponse = {
+export type StorageResponse = {
   bucket: string;
   path: string;
   url: string | null;

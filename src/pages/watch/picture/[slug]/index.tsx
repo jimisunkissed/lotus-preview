@@ -7,7 +7,7 @@ import { WatchRecommendation } from '@/lib/components/section/watch-picture/watc
 import { WatchSeasons } from '@/lib/components/section/watch-picture/watch-seasons';
 import { cn } from '@/lib/utils';
 import { formatNumberSuffix } from '@/lib/utils/general/number-util';
-import { PictureProps, PictureSeasonProps, PictureStreamProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps, PictureSeasonProps, PictureStreamProps } from '@/types/table-type';
 import { format } from 'date-fns';
 import { ArrowLeft, Bookmark, LucideIcon, Play, RectangleGoggles, Upload } from 'lucide-react';
 import { GetStaticPaths, GetStaticProps } from 'next';

@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
 import { PictureDetailLayout } from '@/lib/components/section/picture-detail/picture-detail-layout';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 import { getSingleLocal } from '@/lib/api/local-api';
 
 type Props = {

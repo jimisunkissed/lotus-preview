@@ -1,7 +1,7 @@
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { cn } from '@/lib/utils';
 import { pictureLink } from '@/lib/utils/general/url-util';
-import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { PictureProps } from '@/types/table-type';
 import { differenceInDays, format, parseISO } from 'date-fns';
 import Link from 'next/link';
 import React, { useMemo } from 'react';

@@ -2,9 +2,20 @@ import channelData from '@/data/channel.json';
 import pictureData from '@/data/picture.json';
 import pictureSeasonData from '@/data/picture_season.json';
 import pictureStreamData from '@/data/picture_stream.json';
-import { checkStaticKeys, filterStaticKeys } from '@/lib/utils/service/supabase-util';
-import { GetBatchSupabaseProps, GetSingleSupabaseProps, TableId, TableRow } from '@/types/supabase/supabase-function-type';
-import { PictureProps, PictureSeasonProps, PictureStreamProps, PictureWatchProps } from '@/types/supabase/supabase-table-type';
+import { FilterValue, GetBatchProps, GetSingleProps, StaticKeys, TableFilter, TableId, TableRow } from '@/types/function-type';
+import { PictureProps, PictureSeasonProps, PictureStreamProps, PictureWatchProps } from '@/types/table-type';
+
+const checkStaticKeys = (data: any[], staticKeys: StaticKeys = {}): void => {
+  const keys = Object.keys(staticKeys);
+  if (keys.length && data.some((d) => keys.some((k) => d?.[k] !== staticKeys[k])))
+    throw { code: 400, name: 'Bad Request', message: `Data contains invalid ${keys.join(', ')}` };
+};
+
+const filterStaticKeys = (filters: TableFilter[] = [], staticKeys: StaticKeys = {}): TableFilter[] => {
+  const keys = Object.keys(staticKeys);
+  keys.forEach((k) => filters.push({ column: k, op: 'eq', value: staticKeys[k] as FilterValue }));
+  return filters;
+};
 
 const localTables: Record<string, unknown[]> = {
   channel: channelData,
@@ -13,7 +24,7 @@ const localTables: Record<string, unknown[]> = {
   picture_stream: pictureStreamData,
 };
 
-export const getSingleLocal = <T extends TableId>({ tableId, id, select = '*', staticKeys = {} }: GetSingleSupabaseProps<T>): TableRow<T> => {
+export const getSingleLocal = <T extends TableId>({ tableId, id, select = '*', staticKeys = {} }: GetSingleProps<T>): TableRow<T> => {
   const table = localTables[tableId];
   if (!table) throw new Error(`Table "${tableId}" not found in local data`);
 
@@ -33,7 +44,7 @@ export const getBatchLocal = <T extends TableId>({
   length = 10,
   staticKeys = {},
   nullsFirst = false,
-}: GetBatchSupabaseProps<T>): TableRow<T>[] => {
+}: GetBatchProps<T>): TableRow<T>[] => {
   let data = [...(localTables[tableId] as TableRow<T>[])] as any[];
   if (!data) throw new Error(`Table "${tableId}" not found in local data`);
 
