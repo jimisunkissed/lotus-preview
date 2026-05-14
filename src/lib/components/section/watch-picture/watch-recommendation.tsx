@@ -11,7 +11,7 @@ export function WatchRecommendation({ recommendations }: WatchRecommendationProp
   return (
     <section className="flex flex-col w-full gap-6">
       <h3 className="text-xl">You Might Also Like</h3>
-      <div className="flex w-full items-center gap-6 overflow-x-auto pb-2">
+      <div className="flex w-full items-center gap-6 overflow-x-auto py-2">
         {recommendations.map((rec, i) => (
           <Link
             key={i}

@@ -21,7 +21,7 @@ export function MainMenu(): React.ReactNode {
     { label: 'Docs', path: '/docs' },
     { label: 'Shop', path: '/shop' },
     // { label: 'News', path: '/news' },
-    { label: 'Watch', path: '/watch' },
+    // { label: 'Watch', path: '/watch' },
     { label: 'Account', path: '/account' },
   ];
 
