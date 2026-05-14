@@ -4,7 +4,7 @@ import { MainNavbar } from '@/lib/components/navigation/main-navbar';
 import { cn } from '@/lib/utils';
 import { IBM_Plex_Sans } from 'next/font/google';
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ShopNavbar } from '@/lib/components/navigation/shop-navbar';
 import { useLayoutStore } from '@/hooks/layout-store';
 import { WatchNavbar } from '@/lib/components/navigation/watch-navbar';
@@ -79,7 +79,7 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
   }, [scrollPosition, direction, pathname]);
 
   useEffect(() => {
-    setDarkNavbar(scrollPosition > 0.6 || ['/films', '/series', '/docs'].includes(pathname));
+    setDarkNavbar(scrollPosition > 0.6 || ['/[slug]', '/films', '/series', '/docs'].includes(pathname));
   }, [scrollPosition, pathname]);
 
   return (
@@ -91,8 +91,8 @@ export function RootLayout({ children }: { children: React.ReactNode }): React.R
             routePrefixChecker(pathname, '/shop')
               ? 'bg-neutral-100'
               : routePrefixChecker(pathname, '/watch')
-              ? 'bg-black text-white'
-              : 'bg-white'
+                ? 'bg-black text-white'
+                : 'bg-white',
           )}
         />
 

@@ -1,11 +1,10 @@
 import { Separator } from '@/components/ui/separator';
 import { useStreamStore } from '@/hooks/stream-store';
-import { getBatchSupabase } from '@/lib/api/supabase-api';
+import { getBatchLocal, getPictureWatchLocal } from '@/lib/api/local-api';
 import { FlexButton } from '@/lib/components/flex/flex-button';
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { WatchRecommendation } from '@/lib/components/section/watch-picture/watch-recommendation';
 import { WatchSeasons } from '@/lib/components/section/watch-picture/watch-seasons';
-import { supabase } from '@/lib/config/supabase-client-config';
 import { cn } from '@/lib/utils';
 import { formatNumberSuffix } from '@/lib/utils/general/number-util';
 import { PictureProps, PictureSeasonProps, PictureStreamProps } from '@/types/supabase/supabase-table-type';
@@ -49,17 +48,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const id = Number((slug as string)?.split('-')?.[0]);
     if (!id) throw new Error('Picture ID not found');
 
-    const [stream, recommendations] = await Promise.all([
-      supabase.rpc('get_picture_watch', { picture_id: id }),
-      getBatchSupabase({ tableId: 'picture', filters: [{ column: 'id', op: 'neq', value: id }], length: 3 }),
-    ]);
-    if (stream?.error) throw new Error(stream.error);
-    if (!stream?.data?.picture) throw new Error('Picture not found');
-
-    if (!stream?.data?.stream_main_content?.id) stream.data.stream_main_content = null;
+    const stream = getPictureWatchLocal(id);
+    const recommendations = getBatchLocal({ tableId: 'picture', filters: [{ column: 'id', op: 'neq', value: id }], length: 3 });
 
     return {
-      props: { ...stream.data!, recommendations },
+      props: { ...stream, recommendations },
     };
   } catch (error) {
     return {
@@ -80,7 +73,7 @@ function Index({ picture, seasons, stream_main_content, stream_trailer_id, strea
         { label: 'FILM DETAILS', value: picture?.release_date, transform: (v: string) => format(new Date(v), 'yyyy') },
         { label: 'RUNTIME', value: stream_main_content?.runtime_minutes, transform: (v: number) => `${v} mins` },
       ].filter((art) => !!art?.value),
-    [picture, stream_main_content]
+    [picture, stream_main_content],
   );
 
   const watchFreeStream = (streamId: string): void => {

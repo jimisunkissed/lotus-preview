@@ -1,6 +1,6 @@
 # supabase
-npx supabase gen types typescript --project-id {project-id} --schema public > src/types/supabase/supabase-data-type.ts
-dotenv -e .env -- bash -c 'npx supabase gen types typescript --project-id $NEXT_PUBLIC_SUPABASE_PROJECT_ID --schema public > src/types/supabase/supabase-data-type.ts'
+supabase gen types typescript --project-id "$SUPABASE_PROJECT_ID" --schema public > src/lib/types/supabase/supabase-types.ts
+dotenv -e .env -- supabase gen types typescript --project-id "$SUPABASE_PROJECT_ID" --schema public > src/lib/types/supabase/supabase-types.ts
 
 
 # fly

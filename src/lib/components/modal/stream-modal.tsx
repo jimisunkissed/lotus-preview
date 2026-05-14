@@ -1,11 +1,11 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useStreamStore } from '@/hooks/stream-store';
-import { getSingleSupabase } from '@/lib/api/supabase-api';
 import MuxPlayer from '@mux/mux-player-react';
 import { PictureProps, PictureStreamProps } from '@/types/supabase/supabase-table-type';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Construction, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
+import { getSingleLocal } from '@/lib/api/local-api';
 
 export function StreamModal(): React.ReactNode {
   const { openStream, pictureId, streamId, setOpenStream, setPictureId, setStreamId } = useStreamStore();
@@ -16,10 +16,9 @@ export function StreamModal(): React.ReactNode {
 
   const getData = async (): Promise<void> => {
     try {
-      const [pic, str] = await Promise.all([
-        getSingleSupabase({ tableId: 'picture', id: pictureId }),
-        getSingleSupabase({ tableId: 'picture_stream', id: streamId }),
-      ]);
+      const pic = getSingleLocal({ tableId: 'picture', id: pictureId });
+      const str = getSingleLocal({ tableId: 'picture_stream', id: streamId });
+
       setPicture(pic);
       setStream(str);
     } catch (error) {

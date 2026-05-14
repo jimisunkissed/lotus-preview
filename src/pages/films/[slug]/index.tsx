@@ -1,8 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
 import { PictureDetailLayout } from '@/lib/components/section/picture-detail/picture-detail-layout';
-import { getSingleSupabase } from '@/lib/api/supabase-api';
 import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { getSingleLocal } from '@/lib/api/local-api';
 
 type Props = {
   film: PictureProps;
@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const id = Number((slug as string)?.split('-')?.[0]);
     if (!id) throw new Error('Film ID not found');
 
-    const film = await getSingleSupabase({ tableId: 'picture', id, staticKeys: { type: 'film' } });
+    const film = getSingleLocal({ tableId: 'picture', id, staticKeys: { type: 'film' } });
     if (!film) throw new Error('Film not found');
 
     return {

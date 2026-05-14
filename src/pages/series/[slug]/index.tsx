@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
 import { PictureDetailLayout } from '@/lib/components/section/picture-detail/picture-detail-layout';
 import { PictureProps } from '@/types/supabase/supabase-table-type';
-import { getSingleSupabase } from '@/lib/api/supabase-api';
+import { getSingleLocal } from '@/lib/api/local-api';
 
 type Props = {
   series: PictureProps;
@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const id = Number((slug as string)?.split('-')?.[0]);
     if (!id) throw new Error('Series ID not found');
 
-    const series = await getSingleSupabase({ tableId: 'picture', id, staticKeys: { type: 'series' } });
+    const series = getSingleLocal({ tableId: 'picture', id, staticKeys: { type: 'series' } });
     if (!series) throw new Error('Series not found');
 
     return {

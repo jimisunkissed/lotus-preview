@@ -20,7 +20,7 @@ export function MainMenu(): React.ReactNode {
     { label: 'Series', path: '/series' },
     { label: 'Docs', path: '/docs' },
     { label: 'Shop', path: '/shop' },
-    { label: 'News', path: '/news' },
+    // { label: 'News', path: '/news' },
     { label: 'Watch', path: '/watch' },
     { label: 'Account', path: '/account' },
   ];

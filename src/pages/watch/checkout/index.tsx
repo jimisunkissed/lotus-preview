@@ -1,4 +1,4 @@
-import { getBatchSupabase } from '@/lib/api/supabase-api';
+import { getBatchLocal } from '@/lib/api/local-api';
 import { FlexButton } from '@/lib/components/flex/flex-button';
 import { FlexImage } from '@/lib/components/flex/flex-image';
 import { PaymentMethod } from '@/lib/components/section/checkout/payment-method';
@@ -15,16 +15,16 @@ function Index(): React.ReactNode {
   const { sid, action } = query;
   const subtotal = useMemo(
     () => (!Array.isArray(items) ? 0 : items.reduce((acc, it) => (acc += it?.action === 'purchase' ? it.price_purchase! : it.price_rent!), 0)),
-    [items]
+    [items],
   );
 
   const getItems = async (): Promise<void> => {
     try {
-      const it = await getBatchSupabase({
+      const it = getBatchLocal({
         tableId: 'picture_stream',
         filters: [{ column: 'id', op: 'eq', value: sid! }],
         length: 10,
-      }).then((rows) => rows.map((row) => ({ ...row, action: (Array.isArray(action) ? action[0] : action ?? 'rent') as 'rent' | 'purchase' })));
+      }).map((row) => ({ ...row, action: (Array.isArray(action) ? action[0] : (action ?? 'rent')) as 'rent' | 'purchase' }));
       setItems(it);
     } catch (error) {
       console.error(error);

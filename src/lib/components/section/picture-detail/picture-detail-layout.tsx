@@ -50,8 +50,9 @@ export function PictureDetailLayout({ picture }: PictureDetailLayoutProps): Reac
 
   const selectWatch = (value: string): void => {
     if (value === 'onsite') {
-      if (signed_in) window.open(`${window.location.origin}/watch/picture/${picture.id}-${picture.slug}`, '_blank', 'noopener,noreferrer');
-      else setOpenAuth(true);
+      // if (signed_in) window.open(`${window.location.origin}/watch/picture/${picture.id}-${picture.slug}`, '_blank', 'noopener,noreferrer');
+      // else setOpenAuth(true);
+      window.open(`${window.location.origin}/watch/picture/${picture.id}-${picture.slug}`, '_blank', 'noopener,noreferrer');
     }
   };
 

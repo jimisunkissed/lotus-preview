@@ -1,10 +1,9 @@
-import { getBatchSupabase } from '@/lib/api/supabase-api';
+import { getBatchLocal, getPicturesLocal } from '@/lib/api/local-api';
 import { HeroBanner } from '@/lib/components/section/landing-page/hero-banner';
 import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highlight';
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
 import { PictureList } from '@/lib/components/section/picture/picture-list';
-import { supabase } from '@/lib/config/supabase-client-config';
 import { ChannelProps, PictureProps } from '@/types/supabase/supabase-table-type';
 import { ProductsData } from '@/types/temp-shop';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -28,16 +27,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const { slug } = context.params!;
 
-    const channel = await getBatchSupabase({ tableId: 'channel', filters: [{ column: 'slug', op: 'eq', value: slug! }], length: 1 }).then(
-      (res) => res?.[0]
-    );
+    const channel = getBatchLocal({ tableId: 'channel', filters: [{ column: 'slug', op: 'eq', value: slug! }], length: 1 })?.[0];
     if (!channel?.id) throw new Error('Channel not found');
 
-    const [upcoming, released, all] = await Promise.all([
-      supabase.rpc('get_pictures', { channel_id: channel.id, status: 'upcoming', direction: 'asc' }).then((res) => res.data),
-      supabase.rpc('get_pictures', { channel_id: channel.id, status: 'released', direction: 'desc' }).then((res) => res.data),
-      supabase.rpc('get_pictures', { channel_id: channel.id, direction: 'desc' }).then((res) => res.data),
-    ]);
+    const [upcoming, released, all] = [
+      getPicturesLocal({ channel_id: channel.id, status: 'upcoming', direction: 'asc' }),
+      getPicturesLocal({ channel_id: channel.id, status: 'released', direction: 'desc' }),
+      getPicturesLocal({ channel_id: channel.id, direction: 'desc' }),
+    ];
 
     return {
       props: { channel, upcoming, released, all },

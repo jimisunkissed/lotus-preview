@@ -1,5 +1,5 @@
+import { getPicturesLocal } from '@/lib/api/local-api';
 import { PictureLayout } from '@/lib/components/section/picture/picture-layout';
-import { supabase } from '@/lib/config/supabase-client-config';
 import { PictureProps } from '@/types/supabase/supabase-table-type';
 import { GetStaticProps } from 'next';
 import React from 'react';
@@ -12,11 +12,9 @@ type Props = {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const [upcoming, released, all] = await Promise.all([
-      supabase.rpc('get_pictures', { type: 'documentary', status: 'upcoming', direction: 'asc' }).then((res) => res.data),
-      supabase.rpc('get_pictures', { type: 'documentary', status: 'released', direction: 'desc' }).then((res) => res.data),
-      supabase.rpc('get_pictures', { type: 'documentary', status: 'all', direction: 'desc', length: 15 }).then((res) => res.data),
-    ]);
+    const upcoming = getPicturesLocal({ type: 'documentary', status: 'upcoming', direction: 'asc' });
+    const released = getPicturesLocal({ type: 'documentary', status: 'released', direction: 'desc' });
+    const all = getPicturesLocal({ type: 'documentary', status: 'all', direction: 'desc', length: 15 });
 
     return {
       props: { upcoming, released, all },

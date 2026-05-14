@@ -3,8 +3,8 @@ import { HeroHighlight } from '@/lib/components/section/landing-page/hero-highli
 import { HeroMain } from '@/lib/components/section/landing-page/hero-main';
 import { HeroItemProps } from '@/lib/components/section/landing-page/hero-item';
 import { GetStaticProps } from 'next';
-import { getSingleSupabase } from '@/lib/api/supabase-api';
 import { PictureProps } from '@/types/supabase/supabase-table-type';
+import { getSingleLocal } from '@/lib/api/local-api';
 
 type Props = {
   main: Pick<PictureProps, 'id' | 'type' | 'slug' | 'title' | 'release_date' | 'image_banner'>[];
@@ -13,13 +13,8 @@ type Props = {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const mainPromise = [1, 2, 3, 4, 5].map(async (id) =>
-      getSingleSupabase({ tableId: 'picture', id, select: 'id,type,slug,title,release_date,image_banner' })
-    );
-    const [main, banner1] = await Promise.all([
-      Promise.all(mainPromise),
-      getSingleSupabase({ tableId: 'picture', id: 22, select: 'id,type,slug,title,image_banner' }),
-    ]);
+    const main = [1, 2, 3, 4, 5].map((id) => getSingleLocal({ tableId: 'picture', id, select: 'id,type,slug,title,release_date,image_banner' }));
+    const banner1 = getSingleLocal({ tableId: 'picture', id: 22, select: 'id,type,slug,title,image_banner' });
 
     return {
       props: { main, banner1 },

@@ -1,6 +1,5 @@
 import { useAuthStore } from '@/hooks/auth-store';
 import { getSingleSupabase } from '@/lib/api/supabase-api';
-import { supabase } from '@/lib/config/supabase-client-config';
 import React, { useEffect } from 'react';
 import { toast } from 'sonner';
 import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
@@ -40,19 +39,17 @@ export function AuthProvider(): React.ReactNode {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      handleAuthChange('INITIAL_SESSION', session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event !== 'INITIAL_SESSION') {
-        handleAuthChange(event, session);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    // supabase.auth.getSession().then(({ data: { session } }) => {
+    //   handleAuthChange('INITIAL_SESSION', session);
+    // });
+    // const {
+    //   data: { subscription },
+    // } = supabase.auth.onAuthStateChange((event, session) => {
+    //   if (event !== 'INITIAL_SESSION') {
+    //     handleAuthChange(event, session);
+    //   }
+    // });
+    // return () => subscription.unsubscribe();
   }, []);
 
   return <AuthModal />;
