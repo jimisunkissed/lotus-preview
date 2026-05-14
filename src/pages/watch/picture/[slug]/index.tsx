@@ -98,15 +98,18 @@ function Index({ picture, seasons, stream_main_content, stream_trailer_id, strea
         />
         <FlexImage image={picture.image_banner || picture?.image_thumbnail} alt="Picture Poster" className="brightness-75" />
 
-        <button className="fixed z-50 top-10 left-10 opacity-75 hover:opacity-100 cursor-pointer transition-all duration-300" onClick={back}>
+        <button
+          className="fixed z-50 top-4 left-4 sm:top-10 sm:left-10 opacity-75 hover:opacity-100 cursor-pointer transition-all duration-300"
+          onClick={back}
+        >
           <ArrowLeft />
         </button>
 
-        <header className="absolute z-20 left-10 bottom-10 flex flex-col w-[60%] gap-4">
-          <h1 className="text-8xl opacity-75">{picture.title}</h1>
+        <header className="absolute z-20 left-4 sm:left-10 bottom-4 sm:bottom-10 flex flex-col w-full sm:w-[80%] lg:w-[60%] gap-4 pr-4 sm:pr-0">
+          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-medium sm:font-normal opacity-75">{picture.title}</h1>
           <h2 className="w-full max-w-[500px] text-md opacity-75">{picture?.synopsis}</h2>
 
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4">
             {articles
               .filter((ar) => !!ar?.value)
               .map((ar, i) => (
@@ -126,13 +129,19 @@ function Index({ picture, seasons, stream_main_content, stream_trailer_id, strea
             ) : (
               <>
                 {stream_main_content?.price_purchase && (
-                  <FlexButton className="h-20 w-56 text-xl font-medium hover:bg-primary/90" onClick={() => checkout('purchase')}>
+                  <FlexButton
+                    className="h-14 sm:h-20 w-auto sm:w-56 text-base sm:text-xl font-medium hover:bg-primary/90"
+                    onClick={() => checkout('purchase')}
+                  >
                     <p>BUY</p>
                     <p className="text-background/50">{formatNumberSuffix(stream_main_content.price_purchase).toUpperCase()}</p>
                   </FlexButton>
                 )}
                 {stream_main_content?.price_rent && (
-                  <FlexButton className="h-20 w-56 text-xl font-medium hover:bg-primary/90" onClick={() => checkout('rent')}>
+                  <FlexButton
+                    className="h-14 sm:h-20 w-auto sm:w-56 text-base sm:text-xl font-medium hover:bg-primary/90"
+                    onClick={() => checkout('rent')}
+                  >
                     <p>RENT</p>
                     <p className="text-background/50">{formatNumberSuffix(stream_main_content.price_rent).toUpperCase()}</p>
                   </FlexButton>
@@ -141,7 +150,7 @@ function Index({ picture, seasons, stream_main_content, stream_trailer_id, strea
             )}
           </div>
 
-          <div className="flex h-10 items-center gap-16">
+          <div className="flex h-10 items-center gap-6 sm:gap-10 lg:gap-16">
             {stream_trailer_id ? <ActionLink text="TRAILER" Icon={Play} onClick={() => watchFreeStream(stream_trailer_id)} /> : null}
             {stream_teaser_id ? <ActionLink text="TEASER" Icon={RectangleGoggles} onClick={() => watchFreeStream(stream_teaser_id)} /> : null}
 
@@ -151,12 +160,12 @@ function Index({ picture, seasons, stream_main_content, stream_trailer_id, strea
         </header>
       </div>
 
-      <div className="flex flex-col w-full p-10 pt-0 gap-10">
+      <div className="flex flex-col w-full p-4 sm:p-6 lg:p-10 pt-0 gap-6 lg:gap-10">
         <Separator />
 
         <section className="flex flex-col w-full gap-6">
           <h3 className="text-xl">Additional Details</h3>
-          <div className="grid grid-cols-6 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 w-full">
             <PictureArticle label="AUDIO LANGUAGES" value="English" additional />
           </div>
         </section>

@@ -59,7 +59,9 @@ export function PictureCard({ picture, ar = 'aspect-[3/2]' }: PictureCardProps):
               </>
             )}
 
-            {Array.isArray(picture?.cast) && picture.cast.length ? <PictureDetail label="STARRING" value={picture.cast.join(', ')} /> : null}
+            {Array.isArray(picture?.cast) && picture.cast.length && ar === 'aspect-[6/7]' ? (
+              <PictureDetail label="STARRING" value={picture.cast.join(', ')} />
+            ) : null}
           </div>
         </div>
 

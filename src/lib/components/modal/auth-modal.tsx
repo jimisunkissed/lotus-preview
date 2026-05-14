@@ -80,7 +80,7 @@ export function AuthModal(): React.ReactNode {
 
         <div className="flex flex-col w-full justify-center gap-6 my-4">
           {active === 'signup' && (
-            <div className="grid grid-cols-2 w-full my-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 w-full my-4 gap-6">
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-semibold text-neutral-500">FIRST NAME</label>
                 <input

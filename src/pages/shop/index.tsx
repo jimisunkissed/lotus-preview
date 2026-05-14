@@ -31,9 +31,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
 function Index({ main, recents, apparels }: Props): React.ReactNode {
   return (
-    <div className="flex flex-col min-h-screen w-full px-24">
-      <section className="flex h-[calc(100dvh-112px)] w-full gap-[54px]">
-        <Link href="/shop" className="h-full w-[75%] p-5 overflow-hidden">
+    <div className="flex flex-col min-h-screen w-full px-6 sm:px-12 lg:px-24">
+      <section className="flex flex-col lg:flex-row h-auto lg:h-[calc(100dvh-112px)] w-full gap-6 lg:gap-[54px] pt-32 lg:pt-0">
+        <Link href="/shop" className="h-64 sm:h-96 lg:h-full w-full lg:w-[75%] p-5 overflow-hidden">
           <img src={main.images[0]} alt="Main Image" className="h-full w-full object-contain" />
         </Link>
 
@@ -44,14 +44,14 @@ function Index({ main, recents, apparels }: Props): React.ReactNode {
       </section>
 
       <FlexSeparator label="Recently Added" />
-      <section className="grid grid-cols-4 w-full pt-12 pb-20 gap-[54px]">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full pt-8 lg:pt-12 pb-12 lg:pb-20 gap-6 lg:gap-[54px]">
         {recents.map((pro, i) => (
           <ProductCard key={i} product={pro} />
         ))}
       </section>
 
       <FlexSeparator label="Apparel" />
-      <section className="grid grid-cols-4 w-full pt-12 pb-20 gap-[54px]">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full pt-8 lg:pt-12 pb-12 lg:pb-20 gap-6 lg:gap-[54px]">
         {apparels.map((pro, i) => (
           <ProductCard key={i} product={pro} />
         ))}

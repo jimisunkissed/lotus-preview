@@ -36,9 +36,9 @@ function Index(): React.ReactNode {
   }, [isReady]);
 
   return (
-    <div className="flex flex-col h-screen min-h-fit w-full pt-32">
-      <div className="relative flex w-full justify-center gap-8">
-        <section className="flex flex-col w-[45%] p-10 gap-4">
+    <div className="flex flex-col min-h-screen w-full pt-24 lg:pt-32">
+      <div className="relative flex flex-col lg:flex-row w-full justify-center gap-8">
+        <section className="flex flex-col w-full lg:w-[45%] p-6 lg:p-10 gap-4">
           <strong className="text-2xl font-medium">ITEMS</strong>
           {!Array.isArray(items) ? null : !items.length ? (
             <div className="flex h-96 w-full items-center justify-center">
@@ -86,9 +86,9 @@ function Index(): React.ReactNode {
           )}
         </section>
 
-        <div className="fixed top-0 left-[50%] h-screen w-[1px] self-start bg-neutral-800" />
+        <div className="hidden lg:block lg:fixed lg:top-0 lg:left-[50%] lg:h-screen lg:w-[1px] bg-neutral-800" />
 
-        <section className="flex flex-col w-[45%] p-10 gap-4">
+        <section className="flex flex-col w-full lg:w-[45%] p-6 lg:p-10 gap-4">
           <div className="flex flex-col">
             <strong className="text-2xl font-medium">PAYMENT</strong>
             <p className="font-medium text-primary/75">All transactions are secure and encrypted</p>

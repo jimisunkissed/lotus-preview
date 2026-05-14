@@ -18,17 +18,17 @@ export function PictureLayout({ type, upcoming, released, all }: PictureLayoutPr
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full px-10 pt-48 pb-16 gap-24">
+    <div className="flex flex-col min-h-screen w-full px-6 sm:px-10 pt-32 sm:pt-48 pb-10 sm:pb-16 gap-16 sm:gap-24">
       {upcoming.length ? (
         <section className="flex flex-col w-full gap-10">
-          <h2 className="text-7xl font-medium">Upcoming</h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-medium">Upcoming</h2>
           <PictureBento pictures={upcoming} />
         </section>
       ) : null}
 
       {released.length ? (
         <section className="flex flex-col w-full gap-10">
-          <h2 className="text-7xl font-medium">All {!type ? 'Pictures' : headerConfig[type]}</h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-medium">All {!type ? 'Pictures' : headerConfig[type]}</h2>
           <PictureBento pictures={released.slice(0, 9)} />
         </section>
       ) : null}

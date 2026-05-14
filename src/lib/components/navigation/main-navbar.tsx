@@ -13,9 +13,9 @@ export function MainNavbar(): React.ReactNode {
   return (
     <div
       className={cn(
-        'fixed z-10 h-28 w-full pt-[60px] px-10',
+        'fixed z-10 h-20 sm:h-28 w-full pt-10 sm:pt-[60px] px-6 sm:px-10',
         animated ? 'transition-all duration-300' : '',
-        showNavbar ? 'top-0' : '-top-28',
+        showNavbar ? 'top-0' : '-top-20 sm:-top-28',
         darkNavbar ? 'bg-white' : 'bg-transparent'
       )}
     >

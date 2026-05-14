@@ -20,14 +20,14 @@ export function WatchNavbar(): React.ReactNode {
     !pathname.startsWith('/watch/picture') && (
       <div
         className={cn(
-          'fixed z-10 h-28 w-full pt-[60px] px-16',
+          'fixed z-10 h-20 sm:h-28 w-full pt-10 sm:pt-[60px] px-6 sm:px-10 lg:px-16',
           pathname === '/watch/checkout' ? 'bg-black' : '',
           animated ? 'transition-all duration-300' : '',
-          showNavbar ? 'top-0' : '-top-28'
+          showNavbar ? 'top-0' : '-top-20 sm:-top-28'
         )}
       >
         <div className={cn('grid grid-cols-3 h-full w-full')}>
-          <div className="flex gap-16">
+          <div className="flex gap-4 sm:gap-8 lg:gap-16">
             {menuList.map((menu, i) => (
               <Link
                 key={i}

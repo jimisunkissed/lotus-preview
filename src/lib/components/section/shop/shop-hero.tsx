@@ -74,14 +74,14 @@ export function ShopHero(): React.ReactNode {
 
   return (
     <section className="flex flex-col h-full w-full p-[50px] pb-[30px]">
-      <div className="grid grid-cols-5 w-full px-8 py-4 gap-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 w-full px-4 sm:px-8 py-4 gap-6 lg:gap-10">
         <ShopCollections collection={{ title: 'shop', subcollections: ['home', 'all', 'archive', 'vintage'] }} />
         {collections.map((col, i) => (
           <ShopCollections key={i} collection={{ title: col.title, subcollections: [`all ${col.title}`, ...col.subcollections] }} />
         ))}
       </div>
 
-      <div className="grid grid-cols-3 h-fit w-full gap-10 mt-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 h-fit w-full gap-6 lg:gap-10 mt-auto">
         {banners.map((banner, i) => (
           <ShopBanner key={i} banner={banner} />
         ))}

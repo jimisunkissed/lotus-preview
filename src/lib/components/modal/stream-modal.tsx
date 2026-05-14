@@ -33,7 +33,7 @@ export function StreamModal(): React.ReactNode {
   return (
     <Dialog open={openStream} onOpenChange={setOpenStream}>
       <DialogContent
-        className="group flex flex-col h-[80dvh] max-h-[80dvh] w-[80dvw] min-w-[80dvw] p-0 bg-black overflow-hidden"
+        className="group flex flex-col h-[90dvh] sm:h-[80dvh] max-h-[90dvh] sm:max-h-[80dvh] w-full sm:w-[90dvw] lg:w-[80dvw] min-w-full sm:min-w-[90dvw] lg:min-w-[80dvw] p-0 bg-black overflow-hidden"
         showCloseButton={false}
       >
         <div className="relative flex h-full w-full items-center justify-center">

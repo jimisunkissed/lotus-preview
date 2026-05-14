@@ -18,21 +18,21 @@ export function MainFooter(): React.ReactNode {
   );
 
   return (
-    <div className="flex flex-col h-fit w-full px-[45px] py-[50px] gap-[45px] mt-auto bg-black">
-      <div className="grid grid-cols-4 w-full gap-[45px] text-white">
+    <div className="flex flex-col h-fit w-full px-6 sm:px-10 lg:px-[45px] py-10 lg:py-[50px] gap-8 lg:gap-[45px] mt-auto bg-black">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full gap-8 lg:gap-[45px] text-white">
         <div className="flex flex-col h-full w-full gap-6">
           <Mapper links={left1} />
           <Mapper links={left2} />
         </div>
 
-        <div className="relative flex flex-col h-full w-full justify-end">
+        <div className="relative flex flex-col h-full w-full justify-end pt-10 sm:pt-0">
           <div className="absolute top-0 left-0 flex flex-col w-full">
             <FlexSeparator label="more lotu5" theme="dark" />
           </div>
           <Mapper links={mid} />
         </div>
 
-        <div className="relative col-span-2 flex flex-col h-full w-full justify-end">
+        <div className="relative sm:col-span-2 flex flex-col h-full w-full justify-end pt-10 lg:pt-0">
           <div className="absolute top-0 left-0 flex flex-col w-full">
             <FlexSeparator label="want more lotu5?" theme="dark" />
           </div>
@@ -47,7 +47,7 @@ export function MainFooter(): React.ReactNode {
                 <label className="absolute top-2 left-4 text-[9px]">EMAIL</label>
                 <input className="h-full w-full px-4 font-medium outline-none" />
               </div>
-              <button className="h-full w-48 bg-white text-black cursor-pointer">SIGN UP</button>
+              <button className="h-full w-32 sm:w-48 bg-white text-black cursor-pointer">SIGN UP</button>
             </div>
           </div>
         </div>

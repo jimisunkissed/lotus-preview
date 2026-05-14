@@ -22,15 +22,15 @@ export function HeroItem({ href, category, title, image, ar = 'aspect-square', a
   };
 
   return (
-    <div className={cn('flex', align, 'h-fit w-full gap-[54px]')}>
-      <Link href={href} className={cn('group h-fit w-[60%] bg-neutral-100 overflow-hidden', ar, className)}>
+    <div className={cn('flex flex-col h-fit w-full gap-6 sm:gap-[54px]', align === 'flex-row' ? 'sm:flex-row' : 'sm:flex-row-reverse')}>
+      <Link href={href} className={cn('group h-fit w-full sm:w-[60%] bg-neutral-100 overflow-hidden', ar, className)}>
         <img src={image} alt="Item Highlight" className="h-full w-full object-contain group-hover:scale-102 transition-all duration-1000" />
       </Link>
 
       <div className="flex flex-col flex-1 min-h-full">
         <>
           <p className="text-md text-neutral-500">{category.toUpperCase()}</p>
-          <Link href={href} className="text-7xl font-medium mt-2 mb-auto hover:text-neutral-500 transition-all">
+          <Link href={href} className="text-4xl sm:text-5xl lg:text-7xl font-medium mt-2 mb-auto hover:text-neutral-500 transition-all">
             {title}
           </Link>
         </>

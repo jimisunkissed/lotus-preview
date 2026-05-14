@@ -40,14 +40,14 @@ export function HeroMain({ pictures }: HeroMainProps): React.ReactNode {
   }, []);
 
   return (
-    <div className="relative flex flex-col h-[100dvh] w-[100dvw] px-10 py-12 bg-black overflow-hidden">
+    <div className="relative flex flex-col h-[100dvh] w-[100dvw] px-6 sm:px-10 py-8 sm:py-12 bg-black overflow-hidden">
       <FlexImage image={pictures[active].image_banner!} alt="Main Picture" className="animate-unblur transition-all duration-500" />
 
       <div className="relative z-0 flex flex-col mt-auto -gap-0.5">
         {pictures.map((picture, i) => (
           <article key={i} className="group w-full text-white" onMouseEnter={() => handleMouseEnter(i)} onMouseLeave={handleMouseLeave}>
             <div className="flex w-fit gap-4 cursor-pointer">
-              <Link href={pictureLink(picture)} className={cn('text-7xl font-medium', active === i ? 'text-neutral-300' : 'text-white')}>
+              <Link href={pictureLink(picture)} className={cn('text-4xl sm:text-6xl lg:text-7xl font-medium', active === i ? 'text-neutral-300' : 'text-white')}>
                 {picture.title}
               </Link>
               {picture?.release_date ? (

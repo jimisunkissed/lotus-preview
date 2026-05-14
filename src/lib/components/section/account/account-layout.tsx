@@ -33,8 +33,8 @@ export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode
   }, [loaded, signed_in]);
 
   return (
-    <div className="grid grid-cols-4 min-h-screen w-full px-20 pt-48 gap-12">
-      <div className="flex flex-col w-full gap-12 text-5xl font-medium text-neutral-400">
+    <div className="grid grid-cols-1 lg:grid-cols-4 min-h-screen w-full px-6 sm:px-10 lg:px-20 pt-32 lg:pt-48 gap-8 lg:gap-12">
+      <div className="flex flex-row lg:flex-col w-full gap-6 lg:gap-12 text-xl sm:text-2xl lg:text-5xl font-medium text-neutral-400 overflow-x-auto pb-2 lg:pb-0">
         {menuList.map((menu, i) => (
           <Link
             key={i}
@@ -49,7 +49,7 @@ export function AccountLayout({ children }: AccountLayoutProps): React.ReactNode
         </button>
       </div>
 
-      <div className="flex flex-col col-span-3 w-full">{children}</div>
+      <div className="flex flex-col lg:col-span-3 w-full">{children}</div>
     </div>
   );
 }

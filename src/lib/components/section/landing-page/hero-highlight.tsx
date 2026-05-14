@@ -7,7 +7,7 @@ type HeroHighlightProps = {
 
 export function HeroHighlight({ items }: HeroHighlightProps): React.ReactNode {
   return (
-    <div className="flex flex-col w-full p-24 gap-28">
+    <div className="flex flex-col w-full p-6 sm:p-12 lg:p-24 gap-12 sm:gap-20 lg:gap-28">
       {items.map((item, i) => (
         <HeroItem
           key={i}

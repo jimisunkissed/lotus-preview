@@ -54,14 +54,14 @@ export function PictureList({ pictures }: PictureListProps): React.ReactNode {
               setEntered(true);
             }}
           >
-            <strong className="text-[100px] font-medium leading-none">{picture.title}</strong>
+            <strong className="text-4xl sm:text-6xl lg:text-[100px] font-medium leading-none">{picture.title}</strong>
             {picture.release_date ? <p className="mt-10">{format(new Date(picture?.release_date), 'yyyy')}</p> : null}
           </Link>
         ))}
 
         <div
           className={cn(
-            'z-0 flex aspect-video w-[58dvw] overflow-hidden pointer-events-none',
+            'z-0 hidden md:flex aspect-video w-[58dvw] overflow-hidden pointer-events-none',
             position === 'top'
               ? 'absolute top-0 right-0'
               : position === 'bottom'

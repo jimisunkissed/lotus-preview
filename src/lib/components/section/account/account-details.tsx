@@ -6,7 +6,7 @@ export function AccountDetails(): React.ReactNode {
   const { email, first_name, last_name } = useAuthStore();
 
   return (
-    <div className="grid grid-cols-3 w-full gap-12">
+    <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-8 lg:gap-12">
       <div className="flex flex-col w-full gap-6">
         <FlexSeparator label="basic info" />
 
@@ -18,7 +18,7 @@ export function AccountDetails(): React.ReactNode {
         </div>
       </div>
 
-      <div className="flex flex-col col-span-2 w-full gap-6">
+      <div className="flex flex-col lg:col-span-2 w-full gap-6">
         <FlexSeparator label="addresses" />
         <div className="flex w-full items-center justify-between">
           <p className="font-medium">New address...</p>
